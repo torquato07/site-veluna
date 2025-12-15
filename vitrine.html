@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Coleção Completa Veluna. Navegue por marcas exclusivas: Gucci, Prada, Ralph Lauren e Streetwear de luxo.">
+    <meta name="theme-color" content="#0a0a0a">
+    
+    <title>Coleção Exclusiva | Veluna Representações</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Breadcrumbs & Controls */
+        .collection-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--color-border);
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+        }
+        .breadcrumbs a { color: var(--color-text-muted); transition: color 0.3s; }
+        .breadcrumbs a:hover { color: var(--color-gold-primary); }
+        .breadcrumbs span { color: var(--color-text-primary); margin-left: 5px; }
+        
+        /* Dropdown Fake de Ordenação */
+        .sort-dropdown {
+            background: transparent;
+            border: none;
+            color: var(--color-text-secondary);
+            font-family: var(--font-primary);
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Loading Skeleton Animation */
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        .skeleton {
+            height: 300px;
+            background: linear-gradient(to right, #111 4%, #222 25%, #111 36%);
+            background-size: 1000px 100%;
+            animation: shimmer 2s infinite linear;
+        }
+        
+        @media (max-width: 768px) {
+            .collection-controls { flex-direction: column; gap: 15px; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <p>FRETE GRÁTIS PARA TODO O BRASIL EM COMPRAS ACIMA DE R$ 1.500</p>
+    </div>
+
+    <header id="main-header">
+        <a href="index.html" class="header-logo" aria-label="Veluna Home">VÉLUNA</a>
+
+        <button class="mobile-menu-toggle" aria-label="Abrir Menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <nav class="nav-container">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Início</a>
+                </li>
+                
+                <li class="nav-item static-item">
+                    <a href="vitrine.html" class="nav-link nav-active">Coleção ▾</a>
+                    <div class="mega-menu">
+                        <div class="mega-content">
+                            <div class="mega-column mega-image-col">
+                                <img src="https://images.unsplash.com/photo-1516257984-b1b4d8c9230e?q=80&w=800&auto=format&fit=crop" alt="Destaques">
+                                <span class="image-caption">New Arrivals</span>
+                            </div>
+                            <div class="mega-column">
+                                <h3>Categorias</h3>
+                                <a href="vitrine.html">Ver Tudo</a>
+                                <a href="#">Roupas</a>
+                                <a href="#">Calçados</a>
+                                <a href="#">Acessórios</a>
+                            </div>
+                            <div class="mega-column">
+                                <h3>Highlights</h3>
+                                <a href="#">Streetwear</a>
+                                <a href="#">Alfaiataria</a>
+                                <a href="#">Old Money</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item static-item">
+                    <a href="marcas.html" class="nav-link">Marcas ▾</a>
+                    <div class="mega-menu">
+                        <div class="mega-content brands-container">
+                            <div class="brands-column">
+                                <h3>High End</h3>
+                                <a href="vitrine.html?marca=Gucci">Gucci</a>
+                                <a href="vitrine.html?marca=Prada">Prada</a>
+                                <a href="vitrine.html?marca=Louis Vuitton">Louis Vuitton</a>
+                            </div>
+                            <div class="brands-column">
+                                <h3>Streetwear</h3>
+                                <a href="vitrine.html?marca=Off-White">Off-White</a>
+                                <a href="vitrine.html?marca=Supreme">Supreme</a>
+                                <a href="vitrine.html?marca=BAPE">BAPE</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Encomendas</a>
+                </li>
+                <li class="nav-item">
+                    <a href="vitrine.html" class="nav-link nav-highlight">Pronta Entrega</a>
+                </li>
+                <li class="nav-item mobile-only-item">
+                    <a href="#" class="login-btn">Minha Conta</a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="header-actions">
+            <a href="#" aria-label="Buscar"><i class="fas fa-search"></i></a>
+            <a href="#" aria-label="Minha Conta"><i class="fas fa-user"></i></a>
+            <a href="#" aria-label="Carrinho"><i class="fas fa-shopping-bag"></i></a>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <h1 class="section-title center" style="margin: 0;">Coleção Completa</h1>
+            <p>A curadoria definitiva das maiores grifes mundiais.</p>
+        </section>
+
+        <section class="products-section">
+            <div class="container-limitado">
+                
+                <div class="collection-controls">
+                    <div class="breadcrumbs">
+                        <a href="index.html">Início</a> / <span>Coleção</span>
+                    </div>
+                    <div class="sort-options">
+                        <label for="sort" style="margin-right: 10px;">Ordenar por:</label>
+                        <select id="sort" class="sort-dropdown">
+                            <option>Relevância</option>
+                            <option>Menor Preço</option>
+                            <option>Maior Preço</option>
+                            <option>Mais Recentes</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="vitrine-produtos" class="products-grid">
+                    <div class="skeleton"></div>
+                    <div class="skeleton"></div>
+                    <div class="skeleton"></div>
+                    <div class="skeleton"></div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <section class="newsletter-section">
+        <div class="newsletter-content">
+            <h3>Não encontrou o que buscava?</h3>
+            <p>Trabalhamos com encomendas personalizadas de qualquer lugar do mundo.</p>
+            <a href="#" class="btn-gold">Fazer Cotação Personalizada</a>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <span class="footer-logo">VÉLUNA</span>
+                <p>Curadoria de luxo e exclusividade.<br>Curitiba, PR - Brasil.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegação</h4>
+                <a href="index.html">Início</a>
+                <a href="vitrine.html">Coleção</a>
+                <a href="marcas.html">Marcas</a>
+            </div>
+            <div class="footer-col">
+                <h4>Suporte</h4>
+                <a href="#">Rastrear Pedido</a>
+                <a href="#">Trocas e Devoluções</a>
+                <a href="#">Fale Conosco</a>
+            </div>
+            <div class="footer-col">
+                <h4>Siga-nos</h4>
+                   <footer class="main-footer">
+        <div class="social-links">
+    <a href="https://instagram.com/velunarespresentacoes/" 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       aria-label="Siga-nos no Instagram">
+        <i class="fab fa-instagram"></i>
+    </a>
+
+    <a href="https://wa.me/5541999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20Veluna." 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       aria-label="Fale conosco no WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Veluna Representações. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="database.js"></script> <script src="script.js"></script>   </body>
+</html>

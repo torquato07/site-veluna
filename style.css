@@ -1,0 +1,612 @@
+/* ==========================================================================
+   1. DESIGN TOKENS (A ALMA DO SISTEMA)
+   ========================================================================== */
+:root {
+    /* 🎨 PALETA DE CORES (Dark Luxury Theme) */
+    --color-bg-primary: #050505;
+    --color-bg-secondary: #111111;
+    --color-bg-overlay: rgba(5, 5, 5, 0.95);
+    
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #e0e0e0;
+    --color-text-muted: #888888;
+
+    --color-gold-primary: #bfa15f;
+    --color-gold-hover: #edd595;
+    --color-gold-dim: rgba(191, 161, 95, 0.2);
+
+    --color-border: #2a2a2a;
+    --color-danger: #ff4d4d;
+    --color-success: #00cc66;
+
+    /* ✒️ TIPOGRAFIA */
+    --font-primary: 'Montserrat', sans-serif;
+    --font-display: 'Cinzel', serif;
+
+    /* 📐 ESPAÇAMENTOS & LAYOUT */
+    --max-width: 1400px;
+    --header-height: 80px;
+    --radius-sm: 2px;
+    --radius-md: 4px;
+
+    /* 🥞 CAMADAS (Z-INDEX) */
+    --z-back: -1;
+    --z-normal: 1;
+    --z-sticky: 100;
+    --z-dropdown: 200;
+    --z-modal: 1000;
+}
+
+/* ==========================================================================
+   2. RESET & BASE (NORMALIZAÇÃO)
+   ========================================================================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-family: var(--font-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+/* ==========================================================================
+   3. TYPOGRAPHY & UTILITIES
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.section-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: var(--color-gold-primary);
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title.center { display: table; margin: 0 auto 3rem; }
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60%;
+    height: 2px;
+    background-color: var(--color-gold-primary);
+    margin-top: 10px;
+}
+
+.container-limitado, .mega-content, .footer-content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Botão Dourado Padrão */
+.btn-gold {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    border: 1px solid var(--color-gold-primary);
+    color: var(--color-gold-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-gold::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 0%; height: 100%;
+    background-color: var(--color-gold-primary);
+    transition: width 0.4s ease;
+    z-index: -1;
+}
+
+.btn-gold:hover { color: #000; box-shadow: 0 0 20px var(--color-gold-dim); }
+.btn-gold:hover::before { width: 100%; }
+
+/* ==========================================================================
+   4. TOP BAR & HEADER (CORRIGIDO)
+   ========================================================================== */
+.top-bar {
+    background-color: var(--color-gold-primary);
+    color: #000;
+    text-align: center;
+    padding: 8px 15px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: var(--z-sticky) + 1;
+}
+
+#main-header {
+    background-color: transparent;
+    height: var(--header-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    
+    /* CORREÇÃO 1: Garante que o header seja a âncora do Mega Menu */
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.4s ease;
+}
+
+#main-header.scrolled {
+    background-color: rgba(5, 5, 5, 0.98);
+    backdrop-filter: blur(10px);
+    border-bottom-color: #222;
+    height: 70px;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+}
+
+.header-logo {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--color-text-primary);
+    letter-spacing: 3px;
+    font-weight: 700;
+}
+
+/* Navegação Desktop */
+.nav-container { height: 100%; }
+
+.nav-menu {
+    display: flex;
+    gap: 30px;
+    height: 100%; /* Garante que a UL ocupe toda altura */
+    align-items: center;
+}
+
+/* CORREÇÃO 2: O item PAI (li) do menu precisa disto */
+.static-item {
+    height: 100%;        /* Ocupa a altura total do header */
+    display: flex;       
+    align-items: center; /* Centraliza o texto verticalmente */
+    
+    /* O SEGREDO: position static permite que o filho .mega-menu 
+       ignore a largura deste botão e pegue a largura do #main-header */
+    position: static;    
+}
+
+.nav-link {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    color: var(--color-text-secondary);
+    position: relative;
+    /* Removi o padding exagerado aqui pois o pai .static-item já cuida da altura */
+    padding: 5px 0; 
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px; left: 0; width: 0; height: 1px;
+    background-color: var(--color-gold-primary);
+    transition: width 0.3s ease;
+}
+
+/* Ajuste para quando passar o mouse no PAI, o link ficar ativo */
+.static-item:hover .nav-link,
+.nav-link:hover, 
+.nav-link.nav-active { color: var(--color-text-primary); }
+
+.static-item:hover .nav-link::after,
+.nav-link:hover::after { width: 100%; }
+
+.nav-highlight { color: var(--color-gold-primary); font-weight: 700; }
+
+.header-actions { display: flex; gap: 25px; margin-left: 40px; }
+.header-actions a { color: var(--color-text-secondary); font-size: 1.1rem; }
+.header-actions a:hover { color: var(--color-gold-primary); transform: scale(1.1); }
+
+/* ==========================================================================
+   5. MEGA MENU & DROPDOWNS (CORRIGIDO)
+   ========================================================================== */
+.mega-menu {
+    position: absolute;
+    
+    /* CORREÇÃO 3: Agora top: 100% pega a base do Header corretamente */
+    top: 100%; 
+    left: 0;
+    width: 100%; /* Largura total da tela/header */
+    
+    background-color: var(--color-bg-primary);
+    border-top: 1px solid var(--color-gold-primary);
+    border-bottom: 1px solid var(--color-border);
+    padding: 50px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+    z-index: var(--z-dropdown);
+}
+
+.static-item:hover .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.mega-content { display: flex; gap: 60px; }
+.mega-column { flex: 1; display: flex; flex-direction: column; }
+
+.mega-column h3 {
+    font-size: 0.85rem;
+    color: var(--color-gold-primary);
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 10px;
+}
+
+.mega-column a {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    transition: all 0.2s;
+}
+
+.mega-column a:hover {
+    color: var(--color-gold-primary);
+    padding-left: 5px;
+}
+
+.mega-image-col img {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+    filter: brightness(0.7);
+    transition: filter 0.3s;
+}
+.mega-image-col:hover img { filter: brightness(1); }
+
+/* ==========================================================================
+   6. MOBILE MENU (HAMBURGER & SIDEBAR)
+   ========================================================================== */
+.mobile-menu-toggle { display: none; flex-direction: column; gap: 6px; z-index: var(--z-modal) + 1; }
+.bar { width: 30px; height: 2px; background-color: var(--color-text-primary); transition: all 0.3s; }
+.mobile-only-item { display: none; }
+
+@media (max-width: 1024px) {
+    .header-actions { display: none; }
+    .nav-menu { display: none; }
+    
+    .mobile-menu-toggle { display: flex; }
+    .mobile-only-item { display: block; margin-top: 20px; }
+    
+    /* Fundo escuro ao abrir menu */
+    .nav-menu.active::before {
+        content: '';
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: -1;
+        backdrop-filter: blur(3px);
+        opacity: 0;
+        animation: fadeIn 0.4s forwards;
+    }
+    @keyframes fadeIn { to { opacity: 1; } }
+}
+
+/* Menu Mobile Aberto */
+.nav-menu.active {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; right: 0;
+    width: 80%;
+    max-width: 350px;
+    height: 100vh;
+    background-color: var(--color-bg-secondary);
+    padding: 100px 40px;
+    z-index: var(--z-modal);
+    box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+    border-left: 1px solid var(--color-border);
+    overflow-y: auto;
+    animation: slideIn 0.4s ease forwards;
+}
+
+/* Animação Hamburger */
+.mobile-menu-toggle.active .bar:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+.mobile-menu-toggle.active .bar:nth-child(2) { opacity: 0; }
+.mobile-menu-toggle.active .bar:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+/* Ajustes internos Mobile */
+/* No mobile, removemos o position static para o accordion funcionar localmente */
+.nav-menu.active .static-item {
+    position: relative; 
+    height: auto;
+    display: block;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.nav-link { display: block; padding: 15px 0; font-size: 1rem; }
+
+@media (max-width: 1024px) {
+    .mega-menu {
+        position: static; /* Flui no documento */
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        display: none; /* Escondido por padrão */
+        background: #1a1a1a;
+        padding: 20px;
+        box-shadow: none;
+        border: none;
+        width: 100%;
+        border-top: none;
+    }
+    
+    /* Exibe ao hover (ou click se tiver JS) */
+    .static-item:hover .mega-menu { display: block; }
+    
+    .mega-content { flex-direction: column; gap: 30px; }
+    .mega-image-col { display: none; }
+}
+
+@keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+/* ==========================================================================
+   7. HERO CAROUSEL
+   ========================================================================== */
+.hero-carousel {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    margin-top: calc(var(--header-height) * -1);
+}
+
+.slide {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out, transform 6s ease;
+    z-index: 1;
+    transform: scale(1);
+}
+
+.slide.active { opacity: 1; z-index: 2; transform: scale(1.05); }
+
+.slide::after {
+    content: '';
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+    width: 90%;
+    max-width: 800px;
+}
+
+.hero-subtitle {
+    display: block;
+    font-size: 1rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--color-gold-primary);
+    margin-bottom: 15px;
+    animation: fadeUp 1s ease 0.5s backwards;
+}
+
+.hero-content h1 {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    margin-bottom: 30px;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    animation: fadeUp 1s ease 0.7s backwards;
+}
+
+.hero-content .btn-gold { animation: fadeUp 1s ease 1s backwards; }
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   8. TRUST BAR
+   ========================================================================== */
+.trust-bar {
+    background-color: var(--color-bg-secondary);
+    padding: 60px 20px;
+    display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.trust-item { display: flex; align-items: center; gap: 20px; max-width: 300px; }
+.trust-item i { font-size: 2rem; color: var(--color-gold-primary); }
+.trust-item h4 { font-size: 0.9rem; margin-bottom: 5px; color: #fff; }
+.trust-item p { font-size: 0.8rem; color: #888; line-height: 1.4; }
+
+/* ==========================================================================
+   9. CATEGORIES & PRODUCTS GRID
+   ========================================================================== */
+.categories-section, .products-section { padding: 100px 20px; }
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+.category-card {
+    position: relative; height: 450px; overflow: hidden; cursor: pointer;
+}
+
+.category-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.category-card:hover img { transform: scale(1.1); }
+
+.category-overlay {
+    position: absolute; bottom: 0; left: 0; width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    padding: 40px;
+}
+
+.category-overlay h3 {
+    font-size: 1.8rem; color: #fff;
+    transform: translateY(0); transition: transform 0.3s;
+}
+
+/* VITRINE PRODUTOS */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 40px;
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+.product-card { background-color: transparent; transition: transform 0.3s; position: relative; }
+
+@media (hover: hover) {
+    .product-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--color-border);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .product-card:hover img { transform: scale(1.05); opacity: 0.8; }
+    .product-card:hover .btn-shop { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.product-card:active img { opacity: 0.9; }
+
+.product-badge {
+    position: absolute; top: 10px; right: 10px;
+    padding: 6px 12px; font-size: 0.65rem; font-weight: 700;
+    text-transform: uppercase; z-index: 5; letter-spacing: 1px;
+}
+.badge-pronta { background-color: var(--color-gold-primary); color: #000; }
+.badge-encomenda { background-color: rgba(0,0,0,0.8); color: #fff; border: 1px solid #333; }
+
+.btn-shop {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background-color: #fff; color: #000;
+    padding: 12px 25px;
+    font-weight: 700; text-transform: uppercase;
+    opacity: 0; transition: all 0.3s;
+}
+
+.product-info { text-align: center; margin-top: 15px; }
+.product-brand { display: block; font-size: 0.75rem; color: var(--color-text-muted); text-transform: uppercase; margin-bottom: 5px; }
+.product-name { font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px; }
+.product-price { color: var(--color-gold-primary); font-weight: 600; }
+
+/* ==========================================================================
+   10. ABOUT SECTION & NEWSLETTER
+   ========================================================================== */
+.about-section { padding: 120px 20px; background-color: #080808; }
+.about-section .container-limitado { display: flex; align-items: center; gap: 80px; }
+
+.about-text { flex: 1; }
+.about-text p { margin-bottom: 20px; color: var(--color-text-secondary); font-size: 1.1rem; }
+.text-link { color: var(--color-gold-primary); font-weight: 600; border-bottom: 1px solid transparent; }
+.text-link:hover { border-color: var(--color-gold-primary); }
+
+.about-image { flex: 1; position: relative; }
+.about-image img { border-radius: 2px; position: relative; z-index: 2; filter: contrast(1.1); }
+.gold-border {
+    position: absolute; top: 30px; right: -30px;
+    width: 100%; height: 100%;
+    border: 2px solid var(--color-gold-primary);
+    z-index: 1;
+}
+
+.newsletter-section {
+    padding: 100px 20px; background-color: var(--color-bg-secondary);
+    text-align: center; border-top: 1px solid var(--color-border);
+}
+.newsletter-content h3 { font-size: 2rem; color: var(--color-gold-primary); margin-bottom: 15px; }
+.newsletter-form { display: flex; justify-content: center; gap: 10px; margin-top: 30px; flex-wrap: wrap; }
+.newsletter-form input {
+    padding: 15px 20px; width: 350px;
+    background-color: #000; border: 1px solid #333; color: #fff;
+    outline: none; transition: border 0.3s;
+}
+.newsletter-form input:focus { border-color: var(--color-gold-primary); }
+
+/* ==========================================================================
+   11. FOOTER
+   ========================================================================== */
+.main-footer {
+    background-color: #000; padding: 80px 20px 30px; border-top: 1px solid #1a1a1a;
+}
+.footer-content {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 50px; margin-bottom: 60px;
+}
+.footer-logo { font-family: var(--font-display); font-size: 1.5rem; color: var(--color-gold-primary); display: block; margin-bottom: 20px; }
+.footer-col h4 { font-size: 0.9rem; margin-bottom: 25px; letter-spacing: 1px; }
+.footer-col a { display: block; color: #666; margin-bottom: 12px; font-size: 0.9rem; }
+.footer-col a:hover { color: #fff; transform: translateX(5px); }
+.social-links { display: flex; gap: 20px; }
+.social-links a { font-size: 1.2rem; color: #fff; }
+.social-links a:hover { color: var(--color-gold-primary); }
+.footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid #111; color: #444; font-size: 0.8rem; }
+
+/* ==========================================================================
+   12. PAGE SPECIFIC & RESPONSIVE FIXES
+   ========================================================================== */
+@media (max-width: 768px) {
+    :root { --header-height: 70px; }
+    .section-title::after { width: 40px; }
+    .about-section .container-limitado { flex-direction: column; }
+    .gold-border { display: none; }
+    .trust-bar { gap: 40px; }
+    .trust-item { flex-direction: column; text-align: center; }
+    .newsletter-form input { width: 100%; }
+    .hero-content h1 { font-size: 2.2rem; }
+}
+
+.page-header {
+    padding: 120px 20px 60px; text-align: center;
+    background-color: var(--color-bg-secondary); margin-bottom: 60px;
+}
+.page-header p { color: var(--color-text-muted); margin-top: 10px; }
+
+.brand-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; padding: 50px 20px; max-width: var(--max-width); margin: 0 auto; }
+.brand-card {
+    background: #111; border: 1px solid #222; height: 120px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); text-transform: uppercase;
+    transition: all 0.3s;
+}
+.brand-card:hover { border-color: var(--color-gold-primary); color: var(--color-gold-primary); }
