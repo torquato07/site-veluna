@@ -3,24 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Véluna Representações: A curadoria definitiva em moda de luxo e streetwear.">
     <meta name="theme-color" content="#0a0a0a">
-    <title>Início | Véluna Representações</title>
+    <title>Detalhes | Véluna Representações</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* CSS Específico da Página de Produto (Inline para facilitar, depois movemos para style.css) */
+        .product-detail-container {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr; /* Imagem maior que o texto */
+            gap: 60px;
+            padding: 60px 20px;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        /* Coluna da Imagem */
+        .p-image-col {
+            position: relative;
+            background-color: #111;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .p-image-col img {
+            width: 100%;
+            height: auto;
+            mix-blend-mode: normal; /* Garante cores reais */
+            object-fit: contain;
+        }
+
+        /* Coluna de Informações (Sticky no Desktop) */
+        .p-info-col {
+            position: sticky;
+            top: 100px; /* Não deixa sumir ao rolar */
+        }
+
+        .p-brand { color: var(--color-gold-primary); letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; margin-bottom: 10px; display: block; }
+        .p-title { font-size: 2.5rem; line-height: 1.1; margin-bottom: 20px; font-family: var(--font-display); }
+        .p-price { font-size: 1.8rem; font-weight: 300; color: #fff; margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 30px; }
+        
+        .p-description { color: var(--color-text-secondary); margin-bottom: 30px; font-size: 0.95rem; line-height: 1.8; }
+        
+        .p-meta { display: flex; gap: 20px; margin-bottom: 30px; font-size: 0.8rem; color: #666; text-transform: uppercase; }
+        .p-meta i { color: var(--color-gold-primary); margin-right: 5px; }
+
+        .size-selector { margin-bottom: 30px; }
+        .size-label { display: block; margin-bottom: 10px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        .sizes-grid { display: flex; gap: 10px; flex-wrap: wrap; }
+        .size-btn {
+            width: 50px; height: 50px;
+            border: 1px solid #333;
+            background: transparent;
+            color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .size-btn:hover, .size-btn.selected { border-color: var(--color-gold-primary); color: var(--color-gold-primary); }
+
+        /* Mobile */
+        @media(max-width: 900px) {
+            .product-detail-container { grid-template-columns: 1fr; gap: 40px; padding-top: 20px; }
+            .p-info-col { position: static; }
+            .p-title { font-size: 2rem; }
+        }
+    </style>
 </head>
 <body>
 
-
     <header id="main-header">
-        <a href="index.html" class="header-logo" aria-label="Veluna Home">VÉLUNA</a>
+        <a href="index.html" class="header-logo">VÉLUNA</a>
 
         <button class="mobile-menu-toggle" aria-label="Abrir Menu">
             <span class="bar"></span>
@@ -53,91 +116,21 @@
         
         <div class="header-actions">
             <a href="#" class="js-open-cart" aria-label="Meu Carrinho">
-    <i class="fas fa-shopping-bag"></i>
-    <span class="cart-count-display" style="font-size: 0.8rem; vertical-align: top;">0</span>
-</a>
-
-            <a href="https://wa.me/5541997114692" aria-label="Atendimento WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count-display" style="font-size: 0.8rem; vertical-align: top;">0</span>
+            </a>
         </div>
     </header>
-    
+
     <main>
-        <section class="hero-carousel" aria-label="Destaques">
-            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1600&auto=format&fit=crop');">
-                <div class="hero-content">
-                    <span class="hero-subtitle">Nova Temporada</span>
-                    <h1>Eleve seu Status</h1>
-                    <a href="vitrine.html" class="btn-gold">Comprar Agora</a>
-                </div>
-            </div>
-        </section>
+        <div class="container-limitado" style="padding-top: 20px;">
+            <a href="javascript:history.back()" style="color: #666; font-size: 0.8rem;">&larr; Voltar</a>
+        </div>
 
-        <section class="trust-bar">
-            <div class="trust-item">
-                <i class="fas fa-credit-card"></i>
-                <div>
-                    <h4>Compra Segura</h4>
-                    <p>Parcele no cartão.</p>
-                </div>
-            </div>
-            <div class="trust-item">
-                <i class="fas fa-shipping-fast"></i>
-                <div>
-                    <h4>Entrega Expressa</h4>
-                    <p>Envio imediato para Curitiba.</p>
-                </div>
-            </div>
+        <section class="product-detail-container" id="product-detail-area">
+            <p style="color: #fff;">Carregando produto...</p>
         </section>
-
-        <section class="categories-section">
-            <h2 class="section-title center">Escolha por Categoria</h2>
-            <div class="categories-grid">
-                <a href="vitrine.html?cat=sneakers" class="category-card">
-                    <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?q=80&w=600&auto=format&fit=crop" alt="Sneakers" loading="lazy">
-                    <div class="category-overlay">
-                        <h3>Sneakers</h3>
-                    </div>
-                </a>
-                <a href="vitrine.html?cat=vestuario" class="category-card">
-                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=600&auto=format&fit=crop" alt="Vestuário" loading="lazy">
-                    <div class="category-overlay">
-                        <h3>Roupas</h3>
-                    </div>
-                </a>
-                <a href="vitrine.html?cat=acessorios" class="category-card">
-                    <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?q=80&w=600&auto=format&fit=crop" alt="Acessórios" loading="lazy">
-                    <div class="category-overlay">
-                        <h3>Acessórios</h3>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <section class="products-section">
-            <h2 class="section-title center">Destaques da Semana</h2>
-            <div class="products-grid" id="vitrine-destaques">
-                </div>
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="vitrine.html" class="btn-outline">Ver Loja Completa</a>
-            </div>
-        </section>
-
-        <section class="about-section">
-            <div class="container-limitado">
-                <article class="about-text">
-                    <h3 class="section-title">O Universo Véluna</h3>
-                    <p>A Véluna conecta você às peças mais cobiçadas do mundo. Do streetwear hype às maisons clássicas da Europa, nossa missão é entregar exclusividade diretamente no seu closet.</p>
-                    <a href="vitrine.html" class="text-link">Explorar Coleção &rarr;</a>
-                </article>
-                <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800&auto=format&fit=crop" alt="Lifestyle Veluna" loading="lazy">
-                    <div class="gold-border"></div>
-                </div>
-            </div>
-        </section>
-
     </main>
-
 <footer class="main-footer">
         <div class="container-limitado">
             <div class="footer-content">
@@ -174,14 +167,10 @@
         </div>
     </footer>
 
-    <script src="js/data.js"></script>
-    <script src="js/app.js"></script>
-    
     <div class="cart-overlay" id="cart-overlay"></div>
-    
-    <aside class="cart-sidebar" id="cart-sidebar">
+<aside class="cart-sidebar" id="cart-sidebar">
         <div class="cart-header">
-<h3>Seu Carrinho (<span class="cart-count-display">0</span>)</h3>
+            <h3>Seu Carrinho (<span class="cart-count-display">0</span>)</h3>
             <button class="close-cart" aria-label="Fechar Carrinho">&times;</button>
         </div>
         
@@ -206,5 +195,22 @@
     </div>
     </aside>
 
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+    
+    <script>
+        // Script Inline apenas para inicializar a página de produto específica
+        document.addEventListener('DOMContentLoaded', () => {
+            // Pega o ID da URL (ex: produto.html?id=1)
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            
+            if(id) {
+                VelunaApp.loadProductPage(id);
+            } else {
+                document.getElementById('product-detail-area').innerHTML = '<h2 style="color:white">Produto não encontrado.</h2>';
+            }
+        });
+    </script>
 </body>
 </html>
