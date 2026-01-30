@@ -3,115 +3,419 @@
  * Instruções para Edição Manual:
  * 1. Mantenha os IDs únicos.
  * 2. Preço deve ser numero (ponto flutuante), não string (ex: 1599.90).
- * 3. Categorias exatas usadas no site: 'sneakers', 'vestuario', 'acessorios'.
+ * 3. Categorias exatas usadas no site: 'sneakers', 'camisetas', 'shorts', 'acessorios'.
  * 4. Tipo: 'pronta-entrega' (Badge Dourado) ou 'encomenda' (Badge Escuro).
  * 5. Destaque: true (Aparece na Home) ou false (Apenas na Vitrine).
  */
 
 window.produtosVeluna = [
-    // --- SNEAKERS ---
-    {
-        id: 1,
-        nome: "Air Jordan 1 High 'Dark Mocha'",
-        marca: "Jordan",
-        preco: 3499.00,
-        imagem: "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?q=80&w=800&auto=format&fit=crop",
-        categoria: "sneakers",
-        tipo: "pronta-entrega",
-        destaque: true
-    },
-    {
-        id: 2,
-        nome: "Yeezy Boost 350 V2 'Onyx'",
-        marca: "Adidas",
-        preco: 1890.00,
-        imagem: "https://images.unsplash.com/photo-1617614839843-08638686e9e3?q=80&w=800&auto=format&fit=crop",
-        categoria: "sneakers",
-        tipo: "encomenda",
-        destaque: false
-    },
-    {
-        id: 3,
-        nome: "Off-White x Nike Dunk Low",
-        marca: "Off-White",
-        preco: 4500.00,
-        imagem: "https://images.unsplash.com/photo-1608667508764-33cf0726b13a?q=80&w=800&auto=format&fit=crop",
-        categoria: "sneakers",
-        tipo: "pronta-entrega",
-        destaque: true
-    },
-    {
-        id: 4,
-        nome: "Balenciaga Track Sneaker",
-        marca: "Balenciaga",
-        preco: 8200.00,
-        imagem: "https://images.unsplash.com/photo-1647463518386-829283770141?q=80&w=800&auto=format&fit=crop",
-        categoria: "sneakers",
-        tipo: "encomenda",
-        destaque: false
-    },
 
-    // --- VESTUÁRIO ---
+     {
+    id: 1,
+    nome: "Boné verde / logo branca",
+    imagem: "assets/img/bone-verde-RL.jpeg", 
+    galeria: [
+        "assets/img/bone-verde-RL.jpeg"
+    ],
+    marca: "Ralph Lauren",
+    preco: 55.00,
+    categoria: "acessorios",
+    tipo: "encomenda"
+},
+   
     {
-        id: 5,
-        nome: "Essentials Fear of God Hoodie",
-        marca: "Fear of God",
-        preco: 1200.00,
-        imagem: "https://images.unsplash.com/photo-1571513722275-4b41940954b3?q=80&w=800&auto=format&fit=crop",
-        categoria: "vestuario",
-        tipo: "pronta-entrega",
-        destaque: true
-    },
+    id: 2,
+    nome: "Boné rosa / logo azul",
+    imagem: "assets/img/bone-rosa-RL.jpeg", 
+    galeria: [
+        "assets/img/bone-rosa-RL.jpeg"
+    ],
+    marca: "Ralph Lauren",
+    preco: 55.00,
+    categoria: "acessorios",
+    tipo: "encomenda"
+},
     {
-        id: 6,
-        nome: "Palm Angels Oversized Tee",
-        marca: "Palm Angels",
-        preco: 2100.00,
-        imagem: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=800&auto=format&fit=crop",
-        categoria: "vestuario",
-        tipo: "encomenda",
-        destaque: false
-    },
+    id: 3,
+    nome: "Boné preto / logo branca",
+    imagem: "assets/img/bone-preto-RL.jpeg", 
+    galeria: [
+        "assets/img/bone-preto-RL.jpeg"
+    ],
+    marca: "Ralph Lauren",
+    preco: 55.00,
+    categoria: "acessorios",
+    tipo: "encomenda"   
+},
     {
-        id: 7,
-        nome: "Supreme Box Logo Crewneck",
-        marca: "Supreme",
-        preco: 2800.00,
-        imagem: "https://images.unsplash.com/photo-1503342394128-c104d54dba01?q=80&w=800&auto=format&fit=crop",
-        categoria: "vestuario",
-        tipo: "encomenda",
-        destaque: false
-    },
+    id: 4,
+    nome: "Boné azul / logo escrita branca",
+    imagem: "assets/img/bone-azul-branco-RL.jpeg", 
+    galeria: [
+        "assets/img/bone-azul-branco-RL.jpeg"
+    ],
+    marca: "Ralph Lauren",
+    preco: 55.00,
+    categoria: "acessorios",
+    tipo: "encomenda"   
+},
+    {
+    id: 5,
+    nome: "Bermuda preta / logo simples",
+    imagem: "assets/img/bermuda-armani-preta-frente.jpeg", 
+    galeria: [
+        "assets/img/bermuda-armani-preta-frente.jpeg",
+        "bermuda-preta-armani-costas.jpeg",
+        "assets/img/bermuda-armani-preta.mp4",
+    ],
+    marca: "Armani",
+    preco: 111.00,
+    categoria: "shorts",
+    tipo: "encomenda"   
+},
+{
+    id: 6,
+    nome: "Bermuda azul / logo rosa",
+    imagem: "assets/img/bermuda-RL-azulerosa-Frente.jpeg", 
+    galeria: [
+        "assets/img/bermuda-RL-azulerosa-Frente.jpeg",
+        "assets/img/bermuda-RL-azulerosa-costas.jpeg",
+        "assets/img/bermuda-RL-azulerosa.mp4"
+    ],
+    marca: "Ralph Lauren",
+    preco: 111.00,
+    categoria: "shorts",
+    tipo: "encomenda"   
+},
+{
+    id: 7,
+    nome: "Bermuda preta / logo azul",
+    imagem: "assets/img/bermuda-RL-pretaeazul-frente.jpeg", 
+    galeria: [
+        "assets/img/bermuda-RL-pretaeazul-frente.jpeg",
+        "assets/img/bermuda-RL-pretaeazul-costas.jpeg",
+        "assets/img/bermuda-RL-pretaeazul.mp4"
+    ],
+    marca: "Ralph Lauren",
+    preco: 111.00,
+    categoria: "shorts",
+    tipo: "encomenda"   
+},
+{
+    id: 8,
+    nome: "Bermuda preta / listrada",
+    imagem: "assets/img/bermuda-RL-pretalistrada-frente.jpeg", 
+    galeria: [
+        "assets/img/bermuda-RL-pretalistrada-frente.jpeg",
+        "assets/img/bermuda-RL-pretalistrada .mp4"
+    ],
+    marca: "Ralph Lauren",
+    preco: 111.00,
+    categoria: "shorts",
+    tipo: "encomenda"   
+},
+{
+    id: 9,
+    nome: "Camiseta Anjo",
+    imagem: "assets/img/camiseta-amiri-anjo.jpeg", 
+    galeria: [
+        "assets/img/camiseta-amiri-anjo.jpeg",
+        "assets/img/camiseta-amiri-anjo-costa.jpeg",
+        "assets/img/camiseta-amiri-anjo.mp4"
+    ],
+    marca: "Amiri",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 10,
+    nome: "Camiseta Anjo",
+    imagem: "assets/img/camiseta-amiri-pretaerosa.jpeg", 
+    galeria: [
+        "assets/img/camiseta-amiri-pretaerosa.jpeg",
+        "assets/img/camiseta-amiri-pretaerosa.mp4"
 
-    // --- ACESSÓRIOS ---
-    {
-        id: 8,
-        nome: "Louis Vuitton Keepall 55",
-        marca: "Louis Vuitton",
-        preco: 14500.00,
-        imagem: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=800&auto=format&fit=crop",
-        categoria: "acessorios",
-        tipo: "encomenda",
-        destaque: true
-    },
-    {
-        id: 9,
-        nome: "Gucci GG Marmont Belt",
-        marca: "Gucci",
-        preco: 2900.00,
-        imagem: "https://images.unsplash.com/photo-1622325390974-9226cb493732?q=80&w=800&auto=format&fit=crop",
-        categoria: "acessorios",
-        tipo: "pronta-entrega",
-        destaque: false
-    },
-    {
-        id: 10,
-        nome: "Rolex Submariner Date",
-        marca: "Rolex",
-        preco: 85000.00,
-        imagem: "https://images.unsplash.com/photo-1614777593259-7bc33e0859a7?q=80&w=800&auto=format&fit=crop",
-        categoria: "acessorios",
-        tipo: "encomenda",
-        destaque: false
-    }
+    ],
+    marca: "Amiri",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 11,
+    nome: "Camiseta Azul / Logo branca",
+    imagem: "assets/img/camiseta-armani-azul-dobrada.jpeg", 
+    galeria: [
+        "assets/img/camiseta-armani-azul-dobrada.jpeg",
+        "assets/img/camiseta-armani-azul-dobrada.mp4"
+
+    ],
+    marca: "Armani",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 11,
+    nome: "Camiseta Azul / Logo branca",
+    imagem: "assets/img/camiseta-boss-azul-branca.jpeg", 
+    galeria: [
+        "assets/img/camiseta-boss-azul-branca.jpeg",
+        "assets/img/camiseta-boss-azul-branca.mp4"
+
+    ],
+    marca: "Hugo Boss",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 12,
+    nome: "Camiseta Azul / Logo azul",
+    imagem: "assets/img/camiseta-boss-azul.jpeg", 
+    galeria: [
+        "assets/img/camiseta-boss-azul.jpeg",
+        "assets/img/camiseta-boss-azul.mp4"
+
+    ],
+    marca: "Hugo Boss",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 13,
+    nome: "Camiseta Azul marinho / Logo branca ",
+    imagem: "assets/img/camiseta-boss-azulescuro.jpeg", 
+    galeria: [
+        "assets/img/camiseta-boss-azulescuro.jpeg",
+        "assets/img/camiseta-boss-azulescuro.mp4"
+
+    ],
+    marca: "Hugo Boss",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 14,
+    nome: "Camiseta branca / Listras na manga ",
+    imagem: "assets/img/camiseta-boss-branca-listramanga.jpeg", 
+    galeria: [
+        "assets/img/camiseta-boss-branca-listramanga.jpeg",
+        "assets/img/camiseta-boss-branca-listramanga.mp4"
+
+    ],
+    marca: "Hugo Boss",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 15,
+    nome: "Camiseta branca / Logo branca ",
+    imagem: "assets/img/camiseta-boss-branca.jpeg", 
+    galeria: [
+        "assets/img/camiseta-boss-branca.jpeg",
+        "assets/img/camiseta-boss-branca.mp4"
+
+    ],
+    marca: "Hugo Boss",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 16,
+    nome: "Camiseta Preta / Listras na manga ",
+    imagem: "assets/img/camiseta-boss-listramanga.jpeg", 
+    galeria: [
+        "assets/img/camiseta-boss-listramanga.jpeg",
+        "assets/img/camiseta-boss-listramanga.mp4"
+
+    ],
+    marca: "Hugo Boss",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 17,
+    nome: "Camiseta Preta / Listras na manga ",
+    imagem: "assets/img/camiseta-diesel-azul-dobrada.jpeg", 
+    galeria: [
+        "assets/img/camiseta-diesel-azul-dobrada.jpeg",
+        "assets/img/camiseta-diesel-azul.mp4"
+
+    ],
+    marca: "Diesel",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 18,
+    nome: "Camiseta Preta / Listras na manga ",
+    imagem: "assets/img/camiseta-lacoste-azul.jpeg", 
+    galeria: [
+        "assets/img/camiseta-lacoste-azul.jpeg"
+
+    ],
+    marca: "Lacoste",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 19,
+    nome: "Camiseta Preta / Listras na manga ",
+    imagem: "assets/img/camiseta-lv-branca.jpeg", 
+    galeria: [
+        "assets/img/camiseta-lv-branca.jpeg",
+        "assets/img/camiseta-lv-branca.jpeg"
+
+    ],
+    marca: "Louis Vuitton",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 20,
+    nome: "Camiseta branca / Logo simples ",
+    imagem: "assets/img/camiseta-moncler-dobrada.jpeg", 
+    galeria: [
+        "assets/img/camiseta-moncler-dobrada.jpeg",
+        "assets/img/camiseta-moncler-branca.mp4"
+
+    ],
+    marca: "Moncler",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 21,
+    nome: "Camiseta azul / Logo escudo branco",
+    imagem: "assets/img/camiseta-rl-azul-escudobranco.jpeg", 
+    galeria: [
+        "assets/img/camiseta-rl-azul-escudobranco.jpeg",
+        "assets/img/camiseta-rl-azul-escudobranco.mp4"
+
+    ],
+    marca: "Ralph lauren",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 22,
+    nome: "Camiseta branca / Logo escrita branco",
+    imagem: "assets/img/camiseta-rl-branca-escritaazul.jpeg", 
+    galeria: [
+        "assets/img/camiseta-rl-branca-escritaazul.jpeg",
+        "assets/img/camiseta-rl-branca-escritaazul.mp4"
+
+    ],
+    marca: "Ralph lauren",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 24,
+    nome: "Camiseta preta / Logo escrita branca",
+    imagem: "assets/img/camiseta-rl-preta-escritabranca.jpeg", 
+    galeria: [
+        "assets/img/camiseta-rl-preta-escritabranca.jpeg",
+        "assets/img/camiseta-rl-preta-escritabranca.mp4"
+
+    ],
+    marca: "Ralph lauren",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 24,
+    nome: "Camiseta azul / Logo simples",
+    imagem: "assets/img/camiseta-tommy-azul.jpeg", 
+    galeria: [
+        "assets/img/camiseta-tommy-azul.jpeg",
+    
+    ],
+    marca: "Tommy Hilfiger",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 25,
+    nome: "Camiseta branca / Logo escudo preto",
+    imagem: "assets/img/camiseta-tommy-branca-escudoaberta.jpeg", 
+    galeria: [
+        "assets/img/camiseta-tommy-branca-escudo.jpeg",
+        "assets/img/camiseta-tommy-branca-escudoaberta.jpeg"
+    
+    ],
+    marca: "Tommy Hilfiger",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 26,
+    nome: "Camiseta preta / Logo escudo branco",
+    imagem: "assets/img/camiseta-tommy-preta-escudobranco.jpeg", 
+    galeria: [
+        "assets/img/camiseta-tommy-preta-escudobranco.jpeg",
+        "assets/img/camiseta-tommy-preta-escudobranco.mp4",
+    
+    ],
+    marca: "Tommy Hilfiger",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 27,
+    nome: "Camiseta preta / Logo escrita",
+    imagem: "assets/img/camiseta-tommy-preta.jpeg", 
+    galeria: [
+        "assets/img/camiseta-tommy-preta.jpeg",
+        "assets/img/camiseta-tommy-preta.mp4",
+    
+    ],
+    marca: "Tommy Hilfiger",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 28,
+    nome: "Camiseta diesel / Logo simples",
+    imagem: "assets/img/diesel-preta-logonomeio.jpeg", 
+    galeria: [
+        "assets/img/diesel-preta-logonomeio.jpeg",
+    
+    ],
+    marca: "Diesel",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 29,
+    nome: "Camiseta Polo Lacoste / Logo simples",
+    imagem: "assets/img/polo-lacoste-preta-aberta.jpeg", 
+    galeria: [
+        "assets/img/polo-lacoste-preta-aberta.jpeg",
+        "assets/img/polo-lacoste-preta.jpeg"
+    ],
+    marca: "Lacoste",
+    preco: 150.00,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
 ];

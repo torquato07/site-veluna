@@ -279,38 +279,91 @@ updateCartCount() {
             });
         }
     },
+   // --- FUNÇÃO DE FILTRO INTELIGENTE (CORRIGIDA) ---
+    filtrar(categoria, botaoClicado) {
+        // 1. Atualiza visual dos botões
+        if (botaoClicado) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            botaoClicado.classList.add('active');
+        }
+
+        const container = document.getElementById('vitrine-produtos') || document.getElementById('vitrine-destaques');
+        if (!container) return;
+
+        // 2. RECUPERA O CONTEXTO ATUAL (URL)
+        // Antes de filtrar categoria, verificamos se o usuário está numa página de marca ou pronta-entrega
+        const urlParams = new URLSearchParams(window.location.search);
+        const marcaAtual = urlParams.get('marca');
+        const filtroAtual = urlParams.get('filtro'); // ex: pronta-entrega
+
+        // 3. Começa com todos os produtos
+        let listaBase = this.state.allProducts;
+
+        // 4. Aplica os filtros da URL primeiro (O "Funil" da Marca)
+        if (marcaAtual) {
+            listaBase = listaBase.filter(p => p.marca.toLowerCase() === marcaAtual.toLowerCase());
+        }
+        if (filtroAtual === 'pronta-entrega') {
+            listaBase = listaBase.filter(p => p.tipo === 'pronta-entrega');
+        }
+
+        // 5. Agora sim, aplica o filtro dos botões (Categoria) nessa lista já filtrada
+        let resultadoFinal;
+
+        if (categoria === 'todos') {
+            resultadoFinal = listaBase;
+        } else {
+            resultadoFinal = listaBase.filter(p => 
+                p.categoria && p.categoria.toLowerCase() === categoria.toLowerCase()
+            );
+        }
+
+        // 6. Desenha na tela
+        this.renderProducts(resultadoFinal, container);
+    },
     // --- MÓDULO PÁGINA DE PRODUTO (NOVO) ---
     // --- MÓDULO PÁGINA DE PRODUTO (ATUALIZADO V2) ---
+// --- FUNÇÃO PÁGINA DE PRODUTO (GALERIA MISTA JPEG + VÍDEO) ---
+    // --- FUNÇÃO PÁGINA DE PRODUTO (ATUALIZADA COM ESTOQUE HÍBRIDO) ---
     loadProductPage(id) {
         const produto = this.state.allProducts.find(p => p.id == id);
         const container = document.getElementById('product-detail-area');
 
         if (!produto || !container) return;
 
-        // 1. Lógica Dinâmica de Tamanhos
-        let tamanhosHTML = '';
-        let labelTamanho = 'Selecionar Tamanho';
+        // 1. Definição das Mídias (Foto/Video)
+        const midias = (produto.galeria && produto.galeria.length > 0) ? produto.galeria : [produto.imagem];
 
+        // 2. Definição da Grade de Tamanhos
+        let gradeTamanhos = [];
+        let labelTamanho = 'Tamanho';
+
+        // Lógica para definir quais tamanhos existem (Tênis vs Roupas)
+        const roupas = ['vestuario', 'camisetas', 'shorts', 'moletons', 'calcas', 'jaquetas', 'conjuntos'];
+        
         if (produto.categoria === 'sneakers') {
             labelTamanho = 'Selecionar Tamanho (BR)';
-            const grades = ['38', '39', '40', '41', '42', '43'];
-            tamanhosHTML = grades.map(t => `<button class="size-btn">${t}</button>`).join('');
-        
-        } else if (produto.categoria === 'vestuario') {
+            gradeTamanhos = ['38', '39', '40', '41', '42', '43'];
+        } else if (roupas.includes(produto.categoria.toLowerCase())) {
             labelTamanho = 'Selecionar Tamanho';
-            const grades = ['P', 'M', 'G', 'GG', 'XG'];
-            tamanhosHTML = grades.map(t => `<button class="size-btn">${t}</button>`).join('');
-        
+            gradeTamanhos = ['P', 'M', 'G', 'GG', 'XG'];
         } else {
-            // Acessórios
-            labelTamanho = 'Tamanho';
-            tamanhosHTML = `<button class="size-btn selected" style="width: auto; padding: 0 20px;">Único</button>`;
+            gradeTamanhos = ['Único'];
         }
 
-        // 2. Renderiza o HTML (Com os tamanhos corretos injetados)
+        // 3. Renderiza o HTML Base
         container.innerHTML = `
             <div class="p-image-col">
-                <img src="${produto.imagem}" alt="${produto.nome}">
+                <div class="main-media-stage" id="main-stage">
+                    ${this.gerarHTMLMidia(midias[0], true)} 
+                </div>
+                <div class="gallery-thumbs" id="gallery-thumbs" style="${midias.length <= 1 ? 'display:none' : ''}">
+                    ${midias.map((url, index) => `
+                        <div class="thumb-item ${index === 0 ? 'active' : ''}" onclick="VelunaApp.trocarMidia('${url}', this)">
+                            ${this.gerarHTMLThumb(url)}
+                        </div>
+                    `).join('')}
+                </div>
             </div>
             
             <div class="p-info-col">
@@ -318,20 +371,16 @@ updateCartCount() {
                 <h1 class="p-title">${produto.nome}</h1>
                 <div class="p-price">${this.formatPrice(produto.preco)}</div>
                 
-                <div class="p-meta">
-                    <span><i class="fas fa-check-circle"></i> Autenticidade Garantida</span>
-                    <span><i class="fas fa-box"></i> ${produto.tipo === 'pronta-entrega' ? 'Envio Imediato' : 'Importação'}</span>
-                </div>
+                <div id="stock-mode-area"></div>
 
                 <div class="p-description">
-                    <p>Item exclusivo da coleção ${produto.marca}. Curadoria Véluna Representações. Design sofisticado e materiais de alta qualidade.</p>
+                    <p>Item exclusivo ${produto.marca}. Disponibilidade verificada em tempo real.</p>
                 </div>
 
                 <div class="size-selector">
                     <span class="size-label">${labelTamanho}</span>
-                    <div class="sizes-grid">
-                        ${tamanhosHTML} 
-                    </div>
+                    <div class="sizes-grid" id="sizes-grid">
+                        </div>
                 </div>
 
                 <button class="btn-gold btn-block" onclick="VelunaApp.addToCart(${produto.id})">
@@ -340,11 +389,126 @@ updateCartCount() {
             </div>
         `;
 
-        // 3. Reativa o clique nos botões (Seleção Visual)
+        // 4. Lógica de Renderização dos Botões de Tamanho
+        const stockArea = document.getElementById('stock-mode-area');
+        const sizesGrid = document.getElementById('sizes-grid');
+        
+        // Verifica se o produto tem estoque específico no Brasil
+        const temEstoqueBR = produto.estoqueBr && Array.isArray(produto.estoqueBr) && produto.estoqueBr.length > 0;
+
+        // Função interna para desenhar os botões de tamanho
+        const renderSizes = (modo) => {
+            sizesGrid.innerHTML = ''; // Limpa
+            
+            gradeTamanhos.forEach(tamanho => {
+                const btn = document.createElement('button');
+                btn.className = 'size-btn';
+                btn.textContent = tamanho;
+
+                // A MÁGICA ACONTECE AQUI:
+                // Se o modo for "Pronta Entrega" E o tamanho NÃO estiver na lista -> Bloqueia
+                if (modo === 'pronta-entrega' && temEstoqueBR) {
+                    // Normaliza para comparar (ex: "gg" com "GG")
+                    const disponivel = produto.estoqueBr.some(t => t.toLowerCase() === tamanho.toLowerCase());
+                    
+                    if (!disponivel) {
+                        btn.classList.add('disabled');
+                        btn.title = "Indisponível para Pronta Entrega";
+                    }
+                }
+
+                // Evento de clique (Selecionar)
+                btn.onclick = function() {
+                    if (this.classList.contains('disabled')) return;
+                    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                };
+
+                sizesGrid.appendChild(btn);
+            });
+        };
+
+        // 5. Configura o Seletor de Modo (Botões Pronta Entrega vs Encomenda)
+        if (temEstoqueBR) {
+            stockArea.innerHTML = `
+                <div class="stock-mode-selector">
+                    <button class="mode-btn active" id="btn-pe">Pronta Entrega 🇧🇷</button>
+                    <button class="mode-btn" id="btn-enc">Sob Encomenda ✈️</button>
+                </div>
+            `;
+
+            // Eventos de clique nos botões de modo
+            const btnPE = document.getElementById('btn-pe');
+            const btnEnc = document.getElementById('btn-enc');
+
+            btnPE.onclick = () => {
+                btnPE.classList.add('active');
+                btnEnc.classList.remove('active');
+                renderSizes('pronta-entrega'); // Redesenha bloqueando tamanhos
+            };
+
+            btnEnc.onclick = () => {
+                btnEnc.classList.add('active');
+                btnPE.classList.remove('active');
+                renderSizes('encomenda'); // Redesenha liberando tudo
+            };
+
+            // Começa no modo Pronta Entrega por padrão
+            renderSizes('pronta-entrega');
+
+        } else {
+            // Se não tiver estoque BR, assume que é tudo Encomenda (ou tudo PE se for um item 100% PE)
+            // Mantém comportamento padrão antigo
+            renderSizes('padrao');
+        }
+    },
+
+    // --- FUNÇÕES AUXILIARES DA GALERIA (COLE LOGO ABAIXO DA LOADPRODUCTPAGE) ---
+
+    // Gera o HTML do Palco (Detecta MP4 vs Imagem Normal)
+    gerarHTMLMidia(url, autoplay = false) {
+        const urlLower = url.toLowerCase();
+        // Se terminar com mp4 é vídeo, senão é imagem (JPG, PNG, JPEG, WEBP...)
+        const isVideo = urlLower.endsWith('.mp4') || urlLower.endsWith('.mov');
+
+        if (isVideo) {
+            // Vídeo em loop, sem som, tocando automático
+            return `<video src="${url}" class="media-element fade-in" controls controlsList="nodownload" ${autoplay ? 'autoplay muted' : ''} loop playsinline></video>`;
+        } else {
+            // Imagem Normal
+            return `<img src="${url}" class="media-element fade-in" alt="Detalhe Produto">`;
+        }
+    },
+
+    // Gera a miniatura pequena
+    gerarHTMLThumb(url) {
+        const urlLower = url.toLowerCase();
+        const isVideo = urlLower.endsWith('.mp4') || urlLower.endsWith('.mov');
+
+        if (isVideo) {
+            // Ícone de Play para identificar vídeo
+            return `<div class="thumb-video-icon"><i class="fas fa-play"></i></div>`;
+        } else {
+            return `<img src="${url}" alt="thumb">`;
+        }
+    },
+
+    // Troca a imagem principal ao clicar na miniatura
+    trocarMidia(url, elementoThumb) {
+        // Remove a borda dourada de todos
+        document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active'));
+        // Adiciona borda no clicado
+        elementoThumb.classList.add('active');
+
+        // Troca o conteúdo principal
+        const stage = document.getElementById('main-stage');
+        stage.innerHTML = this.gerarHTMLMidia(url, true); // true = dá play se for vídeo
+    },
+
+    setupSizeButtons(container) {
         const btns = container.querySelectorAll('.size-btn');
         btns.forEach(btn => {
             btn.addEventListener('click', function() {
-                // Remove a classe 'selected' de todos e adiciona no clicado
                 btns.forEach(b => b.classList.remove('selected'));
                 this.classList.add('selected');
             });

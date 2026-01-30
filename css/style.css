@@ -1003,3 +1003,150 @@ h1, h2, h3, h4, h5, h6 {
 .cart-total span:last-child {
     color: var(--color-gold-primary);
 }
+/* Filtros de Categoria */
+.filter-container {
+    width: 100%;
+    border-bottom: 1px solid #222;
+    margin-bottom: 30px;
+    padding: 15px 0;
+    background-color: #0a0a0a;
+    top: 80px; /* Ajuste conforme a altura do seu header */
+    z-index: 90;
+}
+
+.filter-scroll {
+    display: flex;
+    justify-content: center; /* Centraliza no PC */
+    gap: 15px;
+    overflow-x: auto; /* Permite rolar no celular */
+    white-space: nowrap;
+    padding: 0 20px;
+    
+    /* Esconde a barra de rolagem feia */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Esconde barra de rolagem no Chrome/Safari */
+.filter-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 1px solid #333;
+    color: #888;
+    padding: 8px 20px;
+    border-radius: 30px; /* Botão pílula arredondado */
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.filter-btn:hover {
+    border-color: #666;
+    color: #fff;
+}
+
+/* Estado Ativo (Selecionado) */
+.filter-btn.active {
+    background-color: var(--color-gold-primary);
+    border-color: var(--color-gold-primary);
+    color: #000; /* Texto preto no fundo dourado fica show */
+    font-weight: 600;
+}
+
+/* Ajuste Mobile: Alinhar à esquerda para facilitar o scroll */
+@media (max-width: 768px) {
+    .filter-scroll {
+        justify-content: flex-start;
+    }
+}
+/* ==========================================================================
+   GALERIA DE PRODUTO (FOTOS + VÍDEOS)
+   ========================================================================== */
+
+.p-image-col {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* 1. O Palco Principal (Imagem Grande) */
+.main-media-stage {
+    width: 100%;
+    /* Define uma altura fixa ou proporcional para não pular a tela */
+    aspect-ratio: 3 / 4; /* Formato retrato (estilo Instagram) */
+    background-color: #050505;
+    border: 1px solid #222;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.media-element {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Mostra a foto inteira (use 'cover' se quiser preencher tudo cortando bordas) */
+    display: block;
+}
+
+/* Animação suave ao trocar foto */
+.fade-in {
+    animation: fadeInMedia 0.4s ease;
+}
+@keyframes fadeInMedia {
+    from { opacity: 0.8; }
+    to { opacity: 1; }
+}
+
+/* 2. As Miniaturas (Thumbnails) */
+.gallery-thumbs {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto; /* Permite rolar para o lado no celular */
+    padding-bottom: 5px;
+}
+
+/* Esconde barra de rolagem das thumbs */
+.gallery-thumbs::-webkit-scrollbar { height: 4px; }
+.gallery-thumbs::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+
+.thumb-item {
+    min-width: 70px;
+    width: 70px;
+    height: 70px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    cursor: pointer;
+    overflow: hidden;
+    opacity: 0.6;
+    transition: all 0.2s;
+    background-color: #000;
+    position: relative;
+}
+
+.thumb-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Miniatura sempre preenchida */
+}
+
+/* Estado Ativo (Selecionado) */
+.thumb-item:hover, .thumb-item.active {
+    opacity: 1;
+    border-color: var(--color-gold-primary); /* Borda Dourada */
+}
+
+/* Ícone para vídeo na miniatura */
+.thumb-video-icon {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    background: #111; color: #fff; font-size: 1.2rem;
+}

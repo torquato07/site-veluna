@@ -149,7 +149,15 @@
                         </select>
                     </div>
                 </div>
-
+                <div class="filter-container">
+    <div class="filter-scroll">
+        <button class="filter-btn active" onclick="VelunaApp.filtrar('todos', this)">Todos</button>
+        <button class="filter-btn" onclick="VelunaApp.filtrar('sneakers', this)">Sneakers</button>
+        <button class="filter-btn" onclick="VelunaApp.filtrar('camisetas', this)">Camisetas</button>
+        <button class="filter-btn" onclick="VelunaApp.filtrar('shorts', this)">Shorts</button>
+        <button class="filter-btn" onclick="VelunaApp.filtrar('acessorios', this)">Acessórios</button>
+    </div>
+</div>
                 <div id="vitrine-produtos" class="products-grid">
                     <p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Carregando catálogo exclusivo...</p>
                 </div>
