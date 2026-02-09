@@ -322,23 +322,21 @@ updateCartCount() {
         this.renderProducts(resultadoFinal, container);
     },
     // --- MÓDULO PÁGINA DE PRODUTO (NOVO) ---
-    // --- MÓDULO PÁGINA DE PRODUTO (ATUALIZADO V2) ---
-// --- FUNÇÃO PÁGINA DE PRODUTO (GALERIA MISTA JPEG + VÍDEO) ---
-    // --- FUNÇÃO PÁGINA DE PRODUTO (ATUALIZADA COM ESTOQUE HÍBRIDO) ---
+ // --- FUNÇÃO PÁGINA DE PRODUTO (HÍBRIDA) ---
     loadProductPage(id) {
         const produto = this.state.allProducts.find(p => p.id == id);
         const container = document.getElementById('product-detail-area');
 
         if (!produto || !container) return;
 
-        // 1. Definição das Mídias (Foto/Video)
+        // 1. Mídias
         const midias = (produto.galeria && produto.galeria.length > 0) ? produto.galeria : [produto.imagem];
 
-        // 2. Definição da Grade de Tamanhos
+        // 2. Define a Grade de Tamanhos Padrão (Baseado na categoria)
         let gradeTamanhos = [];
         let labelTamanho = 'Tamanho';
-
-        // Lógica para definir quais tamanhos existem (Tênis vs Roupas)
+        
+        // Categorias de Roupas
         const roupas = ['vestuario', 'camisetas', 'shorts', 'moletons', 'calcas', 'jaquetas', 'conjuntos'];
         
         if (produto.categoria === 'sneakers') {
@@ -351,7 +349,7 @@ updateCartCount() {
             gradeTamanhos = ['Único'];
         }
 
-        // 3. Renderiza o HTML Base
+        // 3. Renderiza a Estrutura HTML
         container.innerHTML = `
             <div class="p-image-col">
                 <div class="main-media-stage" id="main-stage">
@@ -374,7 +372,7 @@ updateCartCount() {
                 <div id="stock-mode-area"></div>
 
                 <div class="p-description">
-                    <p>Item exclusivo ${produto.marca}. Disponibilidade verificada em tempo real.</p>
+                    <p>Item exclusivo ${produto.marca}. Selecione a modalidade de envio para ver a disponibilidade.</p>
                 </div>
 
                 <div class="size-selector">
@@ -389,37 +387,39 @@ updateCartCount() {
             </div>
         `;
 
-        // 4. Lógica de Renderização dos Botões de Tamanho
+        // 4. LÓGICA DO SISTEMA HÍBRIDO
         const stockArea = document.getElementById('stock-mode-area');
         const sizesGrid = document.getElementById('sizes-grid');
         
-        // Verifica se o produto tem estoque específico no Brasil
+        // Verifica se existe o campo estoqueBr no data.js
         const temEstoqueBR = produto.estoqueBr && Array.isArray(produto.estoqueBr) && produto.estoqueBr.length > 0;
 
-        // Função interna para desenhar os botões de tamanho
+        // Função que desenha os botões (P, M, G...)
         const renderSizes = (modo) => {
-            sizesGrid.innerHTML = ''; // Limpa
+            sizesGrid.innerHTML = ''; // Limpa tudo antes de desenhar
             
             gradeTamanhos.forEach(tamanho => {
                 const btn = document.createElement('button');
                 btn.className = 'size-btn';
                 btn.textContent = tamanho;
 
-                // A MÁGICA ACONTECE AQUI:
-                // Se o modo for "Pronta Entrega" E o tamanho NÃO estiver na lista -> Bloqueia
+                // SE ESTIVER NO MODO "PRONTA ENTREGA" -> APLICA O FILTRO
                 if (modo === 'pronta-entrega' && temEstoqueBR) {
-                    // Normaliza para comparar (ex: "gg" com "GG")
+                    // Verifica se o tamanho atual existe na lista estoqueBr
+                    // (Usa toLowerCase para garantir que "m" seja igual a "M")
                     const disponivel = produto.estoqueBr.some(t => t.toLowerCase() === tamanho.toLowerCase());
                     
                     if (!disponivel) {
-                        btn.classList.add('disabled');
+                        btn.classList.add('disabled'); // Adiciona classe que risca e bloqueia
                         btn.title = "Indisponível para Pronta Entrega";
                     }
                 }
 
-                // Evento de clique (Selecionar)
+                // Evento de Clique (Selecionar Tamanho)
                 btn.onclick = function() {
+                    // Se estiver riscado, não faz nada
                     if (this.classList.contains('disabled')) return;
+                    
                     document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
                     this.classList.add('selected');
                 };
@@ -428,37 +428,37 @@ updateCartCount() {
             });
         };
 
-        // 5. Configura o Seletor de Modo (Botões Pronta Entrega vs Encomenda)
+        // 5. Configura os Botões de Alternância (Só aparecem se tiver estoqueBr)
         if (temEstoqueBR) {
             stockArea.innerHTML = `
                 <div class="stock-mode-selector">
-                    <button class="mode-btn active" id="btn-pe">Pronta Entrega 🇧🇷</button>
-                    <button class="mode-btn" id="btn-enc">Sob Encomenda ✈️</button>
+                    <button class="mode-btn active" id="btn-pe">Pronta Entrega </button>
+                    <button class="mode-btn" id="btn-enc">Sob Encomenda </button>
                 </div>
             `;
 
-            // Eventos de clique nos botões de modo
             const btnPE = document.getElementById('btn-pe');
             const btnEnc = document.getElementById('btn-enc');
 
+            // Clique em Pronta Entrega
             btnPE.onclick = () => {
                 btnPE.classList.add('active');
                 btnEnc.classList.remove('active');
-                renderSizes('pronta-entrega'); // Redesenha bloqueando tamanhos
+                renderSizes('pronta-entrega'); // Chama a função bloqueando tamanhos
             };
 
+            // Clique em Encomenda
             btnEnc.onclick = () => {
                 btnEnc.classList.add('active');
                 btnPE.classList.remove('active');
-                renderSizes('encomenda'); // Redesenha liberando tudo
+                renderSizes('encomenda'); // Chama a função liberando tudo
             };
 
-            // Começa no modo Pronta Entrega por padrão
+            // INICIALIZAÇÃO: Começa filtrando por Pronta Entrega
             renderSizes('pronta-entrega');
 
         } else {
-            // Se não tiver estoque BR, assume que é tudo Encomenda (ou tudo PE se for um item 100% PE)
-            // Mantém comportamento padrão antigo
+            // Se o produto NÃO tiver estoqueBr definido, desenha normal (tudo liberado)
             renderSizes('padrao');
         }
     },

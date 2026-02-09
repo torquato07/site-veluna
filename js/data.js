@@ -18,7 +18,7 @@ window.produtosVeluna = [
         "assets/img/bone-verde-RL.jpeg"
     ],
     marca: "Ralph Lauren",
-    preco: 55.00,
+    preco: 110.00,
     categoria: "acessorios",
     tipo: "encomenda"
 },
@@ -31,7 +31,7 @@ window.produtosVeluna = [
         "assets/img/bone-rosa-RL.jpeg"
     ],
     marca: "Ralph Lauren",
-    preco: 55.00,
+    preco: 110.00,
     categoria: "acessorios",
     tipo: "encomenda"
 },
@@ -43,7 +43,7 @@ window.produtosVeluna = [
         "assets/img/bone-preto-RL.jpeg"
     ],
     marca: "Ralph Lauren",
-    preco: 55.00,
+    preco: 110.00,
     categoria: "acessorios",
     tipo: "encomenda"   
 },
@@ -55,7 +55,7 @@ window.produtosVeluna = [
         "assets/img/bone-azul-branco-RL.jpeg"
     ],
     marca: "Ralph Lauren",
-    preco: 55.00,
+    preco: 110.00,
     categoria: "acessorios",
     tipo: "encomenda"   
 },
@@ -65,7 +65,7 @@ window.produtosVeluna = [
     imagem: "assets/img/bermuda-armani-preta-frente.jpeg", 
     galeria: [
         "assets/img/bermuda-armani-preta-frente.jpeg",
-        "bermuda-preta-armani-costas.jpeg",
+        "assets/img/bermuda-preta-armani-costas.jpeg",
         "assets/img/bermuda-armani-preta.mp4",
     ],
     marca: "Armani",
@@ -124,7 +124,7 @@ window.produtosVeluna = [
         "assets/img/camiseta-amiri-anjo.mp4"
     ],
     marca: "Amiri",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
@@ -138,7 +138,7 @@ window.produtosVeluna = [
 
     ],
     marca: "Amiri",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
@@ -152,7 +152,7 @@ window.produtosVeluna = [
 
     ],
     marca: "Armani",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
@@ -166,7 +166,7 @@ window.produtosVeluna = [
 
     ],
     marca: "Hugo Boss",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
@@ -180,7 +180,7 @@ window.produtosVeluna = [
 
     ],
     marca: "Hugo Boss",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
@@ -194,7 +194,7 @@ window.produtosVeluna = [
 
     ],
     marca: "Hugo Boss",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
@@ -208,7 +208,7 @@ window.produtosVeluna = [
 
     ],
     marca: "Hugo Boss",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
@@ -222,7 +222,7 @@ window.produtosVeluna = [
 
     ],
     marca: "Hugo Boss",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
@@ -236,7 +236,7 @@ window.produtosVeluna = [
 
     ],
     marca: "Hugo Boss",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
@@ -250,7 +250,7 @@ window.produtosVeluna = [
 
     ],
     marca: "Diesel",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
@@ -263,7 +263,7 @@ window.produtosVeluna = [
 
     ],
     marca: "Lacoste",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
@@ -277,7 +277,7 @@ window.produtosVeluna = [
 
     ],
     marca: "Louis Vuitton",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
@@ -291,7 +291,7 @@ window.produtosVeluna = [
 
     ],
     marca: "Moncler",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
@@ -305,7 +305,7 @@ window.produtosVeluna = [
 
     ],
     marca: "Ralph lauren",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
@@ -319,7 +319,7 @@ window.produtosVeluna = [
 
     ],
     marca: "Ralph lauren",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
@@ -333,7 +333,7 @@ window.produtosVeluna = [
 
     ],
     marca: "Ralph lauren",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
@@ -346,7 +346,7 @@ window.produtosVeluna = [
     
     ],
     marca: "Tommy Hilfiger",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
@@ -360,7 +360,7 @@ window.produtosVeluna = [
     
     ],
     marca: "Tommy Hilfiger",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
@@ -374,7 +374,7 @@ window.produtosVeluna = [
     
     ],
     marca: "Tommy Hilfiger",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
@@ -388,33 +388,202 @@ window.produtosVeluna = [
     
     ],
     marca: "Tommy Hilfiger",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
 {
     id: 28,
-    nome: "Camiseta diesel / Logo simples",
+    nome: "Camiseta preta / Logo simples",
     imagem: "assets/img/diesel-preta-logonomeio.jpeg", 
     galeria: [
         "assets/img/diesel-preta-logonomeio.jpeg",
+        "assets/img/camiseta-diesel-preta-logo-peito2.jpeg",
     
     ],
     marca: "Diesel",
-    preco: 150.00,
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },
 {
     id: 29,
-    nome: "Camiseta Polo Lacoste / Logo simples",
+    nome: "Camiseta Polo / Logo simples",
     imagem: "assets/img/polo-lacoste-preta-aberta.jpeg", 
     galeria: [
         "assets/img/polo-lacoste-preta-aberta.jpeg",
         "assets/img/polo-lacoste-preta.jpeg"
     ],
     marca: "Lacoste",
-    preco: 150.00,
+    preco: 199.90,
+    categoria: "camisetas",
+    tipo: "hibrido", // <--- Mantenha isso para ganhar a etiqueta DOURADA na vitrine
+    estoqueBr: ["M", "GG"], // <--- O código da página interna vai ler isso e bloquear o P e o G.
+},
+{
+    id: 30,
+    nome: "Bone azul escuro / Logo simples branca",
+    imagem: "assets/img/bone-NIKE-azulescuro-logo-branca.jpeg", 
+    galeria: [
+        "assets/img/bone-NIKE-azulescuro-logo-branca.jpeg",
+    ],
+    marca: "Nike",
+    preco: 99.90,
+    categoria: "acessorios",
+    tipo: "hibrido", // <--- Mantenha isso para ganhar a etiqueta DOURADA na vitrine
+},
+{
+    id: 31,
+    nome: "Bone preto / Logo simples branca",
+    imagem: "assets/img/bone-NIKE-preto-logo-branca.jpeg", 
+    galeria: [
+        "assets/img/bone-NIKE-preto-logo-branca.jpeg",
+    ],
+    marca: "Nike",
+    preco: 99.90,
+    categoria: "acessorios",
+    tipo: "hibrido", // <--- Mantenha isso para ganhar a etiqueta DOURADA na vitrine
+},
+{
+    id: 32,
+    nome: "Bone preto / Logo simples preta",
+    imagem: "assets/img/bone-NIKE-preto-logo-preta.jpeg", 
+    galeria: [
+        "assets/img/bone-NIKE-preto-logo-preta.jpeg",
+        "assets/img/bone-NIKE-preto-logo-preta2.jpeg",
+    ],
+    marca: "Nike",
+    preco: 99.90,
+    categoria: "acessorios",
+    tipo: "hibrido", // <--- Mantenha isso para ganhar a etiqueta DOURADA na vitrine
+},
+{
+    id: 33,
+    nome: "Bone azul claro / Logo escrita",
+    imagem: "assets/img/bone-RL-azulclaro-logo-escrita.jpeg", 
+    galeria: [
+        "assets/img/bone-RL-azulclaro-logo-escrita.jpeg",
+    ],
+    marca: "Ralph Lauren",
+    preco: 99.90,
+    categoria: "acessorios",
+    tipo: "hibrido", // <--- Mantenha isso para ganhar a etiqueta DOURADA na vitrine
+},
+{
+    id: 34,
+    nome: "Bone azul escuro / Logo simples",
+    imagem: "assets/img/bone-RL-azulescuro-logo-simples.jpeg", 
+    galeria: [
+        "assets/img/bone-RL-azulescuro-logo-simples.jpeg",
+    ],
+    marca: "Ralph Lauren",
+    preco: 99.90,
+    categoria: "acessorios",
+    tipo: "hibrido", // <--- Mantenha isso para ganhar a etiqueta DOURADA na vitrine
+},
+{
+    id: 35,
+    nome: "Bone branco / Logo escrita",
+    imagem: "assets/img/bone-RL-branco-logo-escrita.jpeg", 
+    galeria: [
+        "assets/img/bone-RL-branco-logo-escrita.jpeg",
+    ],
+    marca: "Ralph Lauren",
+    preco: 99.90,
+    categoria: "acessorios",
+    tipo: "hibrido", // <--- Mantenha isso para ganhar a etiqueta DOURADA na vitrine
+},
+{
+    id: 36,
+    nome: "Bone branco / Logo simples",
+    imagem: "assets/img/bone-RL-branco-logo-simples.jpeg", 
+    galeria: [
+        "assets/img/bone-RL-branco-logo-simples.jpeg",
+    ],
+    marca: "Ralph Lauren",
+    preco: 99.90,
+    categoria: "acessorios",
+    tipo: "hibrido", // <--- Mantenha isso para ganhar a etiqueta DOURADA na vitrine
+},
+{
+    id: 37,
+    nome: "Bone preto / Logo escrita",
+    imagem: "assets/img/bone-RL-preto-logo-escrita.jpeg", 
+    galeria: [
+        "assets/img/bone-RL-preto-logo-escrita.jpeg",
+    ],
+    marca: "Ralph Lauren",
+    preco: 99.90,
+    categoria: "acessorios",
+    tipo: "hibrido", // <--- Mantenha isso para ganhar a etiqueta DOURADA na vitrine
+},
+{
+    id: 38,
+    nome: "Camiseta branca / Logo manga",
+    imagem: "assets/img/camiseta-armani-logo-manga.jpeg", 
+    galeria: [
+        "assets/img/camiseta-armani-logo-manga.jpeg",
+        "assets/img/camiseta-armani-logo-manga-dobrada.jpeg"
+
+    ],
+    marca: "Armani",
+    preco: 159.90,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 39,
+    nome: "Camiseta azul escura / Logo simples",
+    imagem: "assets/img/camiseta-diesel-azul-logo-peito.jpeg", 
+    galeria: [
+        "assets/img/camiseta-diesel-azul-logo-peito.jpeg",
+        "assets/img/camiseta-diesel-azul-logo-peito2.jpeg"
+
+    ],
+    marca: "Diesel",
+    preco: 159.90,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 40,
+    nome: "Camiseta preta / Logo jacaré",
+    imagem: "assets/img/camiseta-lacoste-preta-jacare.jpeg", 
+    galeria: [
+        "assets/img/camiseta-lacoste-preta-jacare.jpeg",
+        "assets/img/camiseta-lacoste-preta-jacare2.jpeg"
+
+    ],
+    marca: "Lacoste",
+    preco: 159.90,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 41,
+    nome: "Camiseta preta / Logo simples",
+    imagem: "assets/img/camiseta-lacoste-preta-logo-simples.jpeg", 
+    galeria: [
+        "assets/img/camiseta-lacoste-preta-logo-simples.jpeg",
+        "assets/img/camiseta-lacoste-preta-logo-simples2.jpeg"
+
+    ],
+    marca: "Lacoste",
+    preco: 159.90,
+    categoria: "camisetas",
+    tipo: "encomenda"   
+},
+{
+    id: 42,
+    nome: "Camiseta branca / Logo simples",
+    imagem: "assets/img/camiseta-lacoste-slim-logo-simples.jpeg", 
+    galeria: [
+        "assets/img/camiseta-lacoste-slim-logo-simples.jpeg",
+         "assets/img/camiseta-lacoste-slim-logo-simples2.jpeg",
+        "assets/img/camiseta-lacoste-slim-logo-simples.mp4",
+    ],
+    marca: "Lacoste",
+    preco: 159.90,
     categoria: "camisetas",
     tipo: "encomenda"   
 },

@@ -1150,3 +1150,55 @@ h1, h2, h3, h4, h5, h6 {
     display: flex; align-items: center; justify-content: center;
     background: #111; color: #fff; font-size: 1.2rem;
 }
+/* --- SELETOR DE MODO (Pronta Entrega vs Encomenda) --- */
+.stock-mode-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    background: #111;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #333;
+}
+
+.mode-btn {
+    flex: 1;
+    padding: 10px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #888;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+.mode-btn.active {
+    background-color: var(--color-gold-primary);
+    color: #000;
+    border-color: var(--color-gold-primary);
+}
+
+/* --- BOTÃO DE TAMANHO DESATIVADO (RISCO DIAGONAL) --- */
+.size-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed !important;
+    pointer-events: none; /* Impede clique */
+    
+    /* O Risco Diagonal CSS */
+    background: linear-gradient(
+        to top right, 
+        transparent 48%, 
+        #555 49%, 
+        #555 51%, 
+        transparent 52%
+    );
+    color: #444;
+    border-color: #222;
+}
+
+/* Ajuste visual quando desativado */
+.size-btn.disabled:hover {
+    border-color: #222;
+    color: #444;
+}
