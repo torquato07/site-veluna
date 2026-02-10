@@ -13,9 +13,9 @@ window.produtosVeluna = [
      {
     id: 1,
     nome: "Boné verde / logo branca",
-    imagem: "assets/img/bone-verde-RL.jpeg", 
+    imagem: "assets/img/bone-rl-verde.jpeg", 
     galeria: [
-        "assets/img/bone-verde-RL.jpeg"
+        "assets/img/bone-rl-verde.jpeg"
     ],
     marca: "Ralph Lauren",
     preco: 109.90,
