@@ -20,6 +20,7 @@ window.produtosVeluna = [
     marca: "Ralph Lauren",
     preco: 109.90,
     categoria: "acessorios",
+    destaque: false,
 },
    
     {
@@ -32,6 +33,8 @@ window.produtosVeluna = [
     marca: "Ralph Lauren",
     preco: 109.90,
     categoria: "acessorios",
+    destaque: false,
+    destaque: true,
 },
     {
     id: 3,
@@ -42,7 +45,10 @@ window.produtosVeluna = [
     ],
     marca: "Ralph Lauren",
     preco: 109.90,
-    categoria: "acessorios",   
+    categoria: "acessorios",
+    destaque: false,
+    destaque: false,
+   
 },
     {
     id: 4,
@@ -53,7 +59,9 @@ window.produtosVeluna = [
     ],
     marca: "Ralph Lauren",
     preco: 109.90,
-    categoria: "acessorios",   
+    categoria: "acessorios",
+    destaque: false,
+    destaque: false,   
 },
     {
     id: 5,
@@ -67,6 +75,7 @@ window.produtosVeluna = [
     marca: "Armani",
     preco: 149.90,
     categoria: "shorts",   
+    destaque: false,
 },
 {
     id: 6,
@@ -80,6 +89,7 @@ window.produtosVeluna = [
     marca: "Ralph Lauren",
     preco: 149.90,
     categoria: "shorts",   
+    destaque: false,
 },
 {
     id: 7,
@@ -93,6 +103,7 @@ window.produtosVeluna = [
     marca: "Ralph Lauren",
     preco: 149.90,
     categoria: "shorts",   
+    destaque: false,
 },
 {
     id: 8,
@@ -105,6 +116,7 @@ window.produtosVeluna = [
     marca: "Ralph Lauren",
     preco: 149.90,
     categoria: "shorts",   
+    destaque: true,
 },
 {
     id: 9,
@@ -118,6 +130,7 @@ window.produtosVeluna = [
     marca: "Amiri",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: true,
 },
 {
     id: 10,
@@ -131,6 +144,7 @@ window.produtosVeluna = [
     marca: "Amiri",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 11,
@@ -144,6 +158,7 @@ window.produtosVeluna = [
     marca: "Armani",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 11,
@@ -157,6 +172,7 @@ window.produtosVeluna = [
     marca: "Hugo Boss",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 12,
@@ -170,6 +186,7 @@ window.produtosVeluna = [
     marca: "Hugo Boss",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 13,
@@ -183,6 +200,7 @@ window.produtosVeluna = [
     marca: "Hugo Boss",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 14,
@@ -196,6 +214,7 @@ window.produtosVeluna = [
     marca: "Hugo Boss",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 15,
@@ -209,6 +228,7 @@ window.produtosVeluna = [
     marca: "Hugo Boss",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 16,
@@ -222,6 +242,7 @@ window.produtosVeluna = [
     marca: "Hugo Boss",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 17,
@@ -235,6 +256,7 @@ window.produtosVeluna = [
     marca: "Diesel",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 18,
@@ -247,6 +269,7 @@ window.produtosVeluna = [
     marca: "Lacoste",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 19,
@@ -260,6 +283,7 @@ window.produtosVeluna = [
     marca: "Louis Vuitton",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 20,
@@ -273,6 +297,7 @@ window.produtosVeluna = [
     marca: "Moncler",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 21,
@@ -286,6 +311,7 @@ window.produtosVeluna = [
     marca: "Ralph lauren",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 22,
@@ -299,6 +325,7 @@ window.produtosVeluna = [
     marca: "Ralph lauren",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 24,
@@ -312,6 +339,7 @@ window.produtosVeluna = [
     marca: "Ralph lauren",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 24,
@@ -324,6 +352,7 @@ window.produtosVeluna = [
     marca: "Tommy Hilfiger",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 25,
@@ -337,6 +366,7 @@ window.produtosVeluna = [
     marca: "Tommy Hilfiger",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 26,
@@ -350,6 +380,7 @@ window.produtosVeluna = [
     marca: "Tommy Hilfiger",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 27,
@@ -363,6 +394,7 @@ window.produtosVeluna = [
     marca: "Tommy Hilfiger",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 28,
@@ -376,6 +408,7 @@ window.produtosVeluna = [
     marca: "Diesel",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 29,
@@ -399,6 +432,7 @@ window.produtosVeluna = [
     marca: "Nike",
     preco: 89.90,
     categoria: "acessorios",
+    destaque: false,
 },
 {
     id: 31,
@@ -410,6 +444,7 @@ window.produtosVeluna = [
     marca: "Nike",
     preco: 89.90,
     categoria: "acessorios",
+    destaque: false,
 },
 {
     id: 32,
@@ -422,6 +457,7 @@ window.produtosVeluna = [
     marca: "Nike",
     preco: 89.90,
     categoria: "acessorios",
+    destaque: false,
 },
 {
     id: 33,
@@ -433,6 +469,7 @@ window.produtosVeluna = [
     marca: "Ralph Lauren",
     preco: 109.90,
     categoria: "acessorios",
+    destaque: false,
 },
 {
     id: 34,
@@ -444,6 +481,7 @@ window.produtosVeluna = [
     marca: "Ralph Lauren",
     preco: 109.90,
     categoria: "acessorios",
+    destaque: false,
 },
 {
     id: 35,
@@ -455,6 +493,7 @@ window.produtosVeluna = [
     marca: "Ralph Lauren",
     preco: 109.90,
     categoria: "acessorios",
+    destaque: false,
 },
 {
     id: 36,
@@ -466,6 +505,7 @@ window.produtosVeluna = [
     marca: "Ralph Lauren",
     preco: 109.90,
     categoria: "acessorios",
+    destaque: false,
 },
 {
     id: 37,
@@ -477,6 +517,7 @@ window.produtosVeluna = [
     marca: "Ralph Lauren",
     preco: 109.90,
     categoria: "acessorios",
+    destaque: false,
 },
 {
     id: 38,
@@ -490,6 +531,7 @@ window.produtosVeluna = [
     marca: "Armani",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 39,
@@ -503,6 +545,7 @@ window.produtosVeluna = [
     marca: "Diesel",
     preco: 159.90,
     categoria: "camisetas",   
+    destaque: false,
 },
 {
     id: 40,

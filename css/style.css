@@ -608,8 +608,30 @@ h1, h2, h3, h4, h5, h6 {
 .about-text { flex: 1; }
 .about-text p { margin-bottom: 20px; color: var(--color-text-secondary); font-size: 1.1rem; }
 .about-image { flex: 1; position: relative; }
-.about-image img { border-radius: 2px; position: relative; z-index: 2; filter: contrast(1.1); }
-.gold-border { position: absolute; top: 30px; right: -30px; width: 100%; height: 100%; border: 2px solid var(--color-gold-primary); z-index: 1; }
+.about-image img {
+    border-radius: 2px;
+    position: relative;
+    z-index: 1; /* A imagem agora fica ATRÁS da moldura */
+    filter: contrast(1.1);
+    display: block; /* Garante que não fique espaço em branco embaixo */
+    width: 100%; /* Garante que ocupe o container todo */
+}
+
+.gold-border {
+    position: absolute;
+    top: 0;      /* Alinha perfeitamente no topo */
+    left: 0;     /* Alinha perfeitamente na esquerda */
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--color-gold-primary);
+    z-index: 2; /* A moldura agora fica NA FRENTE da imagem */
+    
+    /* Garante que a borda fina fique para dentro da imagem, não para fora */
+    box-sizing: border-box; 
+    
+    /* Garante que a moldura não atrapalhe se um dia a imagem tiver link */
+    pointer-events: none; 
+}
 
 .newsletter-section { padding: 100px 20px; background-color: var(--color-bg-secondary); text-align: center; border-top: 1px solid var(--color-border); }
 .newsletter-content p { color: var(--color-text-secondary); margin-bottom: 40px; font-size: 1.1rem; }
