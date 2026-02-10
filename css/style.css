@@ -1,8 +1,11 @@
 /* ==========================================================================
-   1. DESIGN TOKENS (A ALMA DO SISTEMA)
+   VÉLUNA REPRESENTAÇÕES - MASTER STYLESHEET (V. FINAL)
+   ========================================================================== */
+
+/* 1. DESIGN TOKENS
    ========================================================================== */
 :root {
-    /* 🎨 PALETA DE CORES (Dark Luxury Theme) */
+    /* 🎨 Cores */
     --color-bg-primary: #050505;
     --color-bg-secondary: #111111;
     --color-bg-overlay: rgba(5, 5, 5, 0.95);
@@ -19,29 +22,26 @@
     --color-danger: #ff4d4d;
     --color-success: #00cc66;
 
-    /* ✒️ TIPOGRAFIA */
+    /* ✒️ Tipografia */
     --font-primary: 'Montserrat', sans-serif;
     --font-display: 'Cinzel', serif;
 
-    /* 📐 ESPAÇAMENTOS & LAYOUT */
+    /* 📐 Layout */
     --max-width: 1400px;
     --header-height: 80px;
-    --radius-sm: 2px;
-    --radius-md: 4px;
 
-    /* 🥞 CAMADAS (Z-INDEX) */
+    /* 🥞 Z-Index (Organização Vertical) */
     --z-back: -1;
     --z-normal: 1;
     --z-sticky: 100;
     --z-dropdown: 200;
+    --z-overlay: 990;
     --z-modal: 1000;
 }
 
-/* ==========================================================================
-   2. RESET & BASE (NORMALIZAÇÃO)
+/* 2. RESET & BASE
    ========================================================================== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 html { font-size: 16px; scroll-behavior: smooth; }
 
 body {
@@ -57,9 +57,9 @@ a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
 ul { list-style: none; }
 img { max-width: 100%; display: block; }
 button { cursor: pointer; border: none; background: none; font-family: inherit; }
+.body-no-scroll { overflow: hidden; }
 
-/* ==========================================================================
-   3. TYPOGRAPHY & UTILITIES
+/* 3. TYPOGRAPHY & UTILITIES
    ========================================================================== */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
@@ -75,1130 +75,538 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
     display: inline-block;
 }
-
 .section-title.center { display: table; margin: 0 auto 3rem; }
-
 .section-title::after {
-    content: '';
-    display: block;
-    width: 60%;
-    height: 2px;
-    background-color: var(--color-gold-primary);
-    margin-top: 10px;
+    content: ''; display: block; width: 60%; height: 2px;
+    background-color: var(--color-gold-primary); margin-top: 10px;
 }
 
-.container-limitado, .mega-content, .footer-content {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 20px;
+.container-limitado, .mega-content, .footer-content, .policy-content {
+    max-width: var(--max-width); margin: 0 auto; padding: 0 20px;
 }
 
-/* Botão Dourado Padrão */
+/* Botão Dourado */
 .btn-gold {
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    border: 1px solid var(--color-gold-primary);
-    color: var(--color-gold-primary);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 0.85rem;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
+    display: inline-block; padding: 1rem 2.5rem;
+    border: 1px solid var(--color-gold-primary); color: var(--color-gold-primary);
+    font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
+    font-size: 0.85rem; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative; overflow: hidden; z-index: 1;
 }
-
 .btn-gold::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 0%; height: 100%;
-    background-color: var(--color-gold-primary);
-    transition: width 0.4s ease;
-    z-index: -1;
+    content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%;
+    background-color: var(--color-gold-primary); transition: width 0.4s ease; z-index: -1;
 }
-
 .btn-gold:hover { color: #000; box-shadow: 0 0 20px var(--color-gold-dim); }
 .btn-gold:hover::before { width: 100%; }
+.btn-block { width: 100%; text-align: center; }
 
-/* ==========================================================================
-   4. TOP BAR & HEADER (CORRIGIDO)
+/* 4. HEADER & MENU DESKTOP
    ========================================================================== */
 .top-bar {
-    background-color: var(--color-gold-primary);
-    color: #000;
-    text-align: center;
-    padding: 8px 15px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    position: relative;
-    z-index: var(--z-sticky) + 1;
+    background-color: var(--color-gold-primary); color: #000;
+    text-align: center; padding: 8px 15px; font-size: 0.7rem;
+    font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    position: relative; z-index: var(--z-sticky) + 1;
 }
 
 #main-header {
-    background-color: transparent;
-    height: var(--header-height);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 40px;
-    
-    /* CORREÇÃO 1: Garante que o header seja a âncora do Mega Menu */
-    position: sticky;
-    top: 0;
-    z-index: var(--z-sticky);
-    
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    transition: all 0.4s ease;
+    background-color: transparent; height: var(--header-height);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 40px; position: sticky; top: 0; z-index: var(--z-sticky);
+    border-bottom: 1px solid rgba(255,255,255,0.1); transition: all 0.4s ease;
 }
-
 #main-header.scrolled {
-    background-color: rgba(5, 5, 5, 0.98);
-    backdrop-filter: blur(10px);
-    border-bottom-color: #222;
-    height: 70px;
-    box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+    background-color: rgba(5, 5, 5, 0.98); backdrop-filter: blur(10px);
+    border-bottom-color: #222; height: 70px; box-shadow: 0 4px 30px rgba(0,0,0,0.5);
 }
 
 .header-logo {
-    font-family: var(--font-display);
-    font-size: 1.8rem;
-    color: var(--color-text-primary);
-    letter-spacing: 3px;
-    font-weight: 700;
+    font-family: var(--font-display); font-size: 1.8rem;
+    color: var(--color-text-primary); letter-spacing: 3px; font-weight: 700;
 }
 
-/* Navegação Desktop */
-.nav-container { height: 100%; }
-
-.nav-menu {
-    display: flex;
-    gap: 30px;
-    height: 100%; /* Garante que a UL ocupe toda altura */
-    align-items: center;
-}
-
-/* CORREÇÃO 2: O item PAI (li) do menu precisa disto */
-.static-item {
-    height: 100%;        /* Ocupa a altura total do header */
-    display: flex;       
-    align-items: center; /* Centraliza o texto verticalmente */
-    
-    /* O SEGREDO: position static permite que o filho .mega-menu 
-       ignore a largura deste botão e pegue a largura do #main-header */
-    position: static;    
-}
+.nav-menu { display: flex; gap: 30px; height: 100%; align-items: center; }
+.static-item { height: 100%; display: flex; align-items: center; position: static; }
 
 .nav-link {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    font-weight: 500;
-    letter-spacing: 1.5px;
-    color: var(--color-text-secondary);
-    position: relative;
-    /* Removi o padding exagerado aqui pois o pai .static-item já cuida da altura */
-    padding: 5px 0; 
+    font-size: 0.75rem; text-transform: uppercase; font-weight: 500;
+    letter-spacing: 1.5px; color: var(--color-text-secondary);
+    position: relative; padding: 5px 0;
 }
-
 .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -5px; left: 0; width: 0; height: 1px;
-    background-color: var(--color-gold-primary);
-    transition: width 0.3s ease;
+    content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px;
+    background-color: var(--color-gold-primary); transition: width 0.3s ease;
 }
-
-/* Ajuste para quando passar o mouse no PAI, o link ficar ativo */
-.static-item:hover .nav-link,
-.nav-link:hover, 
-.nav-link.nav-active { color: var(--color-text-primary); }
-
-.static-item:hover .nav-link::after,
-.nav-link:hover::after { width: 100%; }
-
-.nav-highlight { color: var(--color-gold-primary); font-weight: 700; }
+.static-item:hover .nav-link, .nav-link:hover, .nav-link.nav-active { color: var(--color-text-primary); }
+.static-item:hover .nav-link::after, .nav-link:hover::after { width: 100%; }
 
 .header-actions { display: flex; gap: 25px; margin-left: 40px; }
 .header-actions a { color: var(--color-text-secondary); font-size: 1.1rem; }
 .header-actions a:hover { color: var(--color-gold-primary); transform: scale(1.1); }
 
-/* ==========================================================================
-   5. MEGA MENU & DROPDOWNS (CORRIGIDO)
-   ========================================================================== */
+/* Mega Menu */
 .mega-menu {
-    position: absolute;
-    
-    /* CORREÇÃO 3: Agora top: 100% pega a base do Header corretamente */
-    top: 100%; 
-    left: 0;
-    width: 100%; /* Largura total da tela/header */
-    
-    background-color: var(--color-bg-primary);
-    border-top: 1px solid var(--color-gold-primary);
-    border-bottom: 1px solid var(--color-border);
-    padding: 50px 0;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+    position: absolute; top: 100%; left: 0; width: 100%;
+    background-color: var(--color-bg-primary); border-top: 1px solid var(--color-gold-primary);
+    border-bottom: 1px solid var(--color-border); padding: 50px 0;
+    opacity: 0; visibility: hidden; transform: translateY(10px);
+    transition: all 0.3s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.9);
     z-index: var(--z-dropdown);
 }
-
-.static-item:hover .mega-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
+.static-item:hover .mega-menu { opacity: 1; visibility: visible; transform: translateY(0); }
 .mega-content { display: flex; gap: 60px; }
 .mega-column { flex: 1; display: flex; flex-direction: column; }
-
 .mega-column h3 {
-    font-size: 0.85rem;
-    color: var(--color-gold-primary);
-    margin-bottom: 20px;
-    letter-spacing: 2px;
-    border-bottom: 1px solid var(--color-border);
-    padding-bottom: 10px;
+    font-size: 0.85rem; color: var(--color-gold-primary); margin-bottom: 20px;
+    letter-spacing: 2px; border-bottom: 1px solid var(--color-border); padding-bottom: 10px;
 }
-
-.mega-column a {
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
-    margin-bottom: 12px;
-    transition: all 0.2s;
-}
-
-.mega-column a:hover {
-    color: var(--color-gold-primary);
-    padding-left: 5px;
-}
-
-.mega-image-col img {
-    height: 300px;
-    width: 100%;
-    object-fit: cover;
-    filter: brightness(0.7);
-    transition: filter 0.3s;
-}
+.mega-column a { color: var(--color-text-muted); font-size: 0.9rem; margin-bottom: 12px; transition: 0.2s; }
+.mega-column a:hover { color: var(--color-gold-primary); padding-left: 5px; }
+.mega-image-col img { height: 300px; width: 100%; object-fit: cover; filter: brightness(0.7); transition: 0.3s; }
 .mega-image-col:hover img { filter: brightness(1); }
 
 /* ==========================================================================
-   6. MOBILE MENU (HAMBURGER & SIDEBAR)
+   5. MOBILE MENU (CORREÇÃO FINAL: Z-INDEX + HEADER SÓLIDO)
    ========================================================================== */
-.mobile-menu-toggle { display: none; flex-direction: column; gap: 6px; z-index: var(--z-modal) + 1; }
-.bar { width: 30px; height: 2px; background-color: var(--color-text-primary); transition: all 0.3s; }
+.mobile-menu-toggle { display: none; flex-direction: column; gap: 6px; z-index: 3000; cursor: pointer; }
+.bar { width: 30px; height: 2px; background-color: #fff; transition: 0.3s; }
 .mobile-only-item { display: none; }
 
+/* A Cortina Preta */
+#mobile-menu-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px);
+    z-index: 2000; /* Abaixo do header */
+    opacity: 0; visibility: hidden; transition: 0.3s;
+}
+#mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+
 @media (max-width: 1024px) {
-    .header-actions { display: none; }
-    .nav-menu { display: none; }
-    
+    .header-actions, .nav-menu { display: none; }
     .mobile-menu-toggle { display: flex; }
-    .mobile-only-item { display: block; margin-top: 20px; }
-}
-
-/* Classe ativada via Javascript */
-#mobile-menu-overlay.active {
-    opacity: 1; 
-    visibility: visible;
-}
-/* Menu Mobile Aberto */
-.nav-menu.active {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 0; right: 0;
-    width: 80%;
-    max-width: 350px;
-    height: 100vh;
-    background-color: var(--color-bg-secondary);
-    padding: 100px 40px;
-    z-index: var(--z-modal);
-    box-shadow: -10px 0 30px rgba(0,0,0,0.8);
-    border-left: 1px solid var(--color-border);
-    overflow-y: auto;
-    animation: slideIn 0.4s ease forwards;
-}
-
-/* Animação Hamburger */
-.mobile-menu-toggle.active .bar:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
-.mobile-menu-toggle.active .bar:nth-child(2) { opacity: 0; }
-.mobile-menu-toggle.active .bar:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
-
-/* Ajustes internos Mobile */
-/* No mobile, removemos o position static para o accordion funcionar localmente */
-.nav-menu.active .static-item {
-    position: relative; 
-    height: auto;
-    display: block;
-    border-bottom: 1px solid var(--color-border);
-}
-
-.nav-link { display: block; padding: 15px 0; font-size: 1rem; }
-
-@media (max-width: 1024px) {
-    .mega-menu {
-        position: static; /* Flui no documento */
-        opacity: 1;
-        visibility: visible;
-        transform: none;
-        display: none; /* Escondido por padrão */
-        background: #1a1a1a;
-        padding: 20px;
-        box-shadow: none;
-        border: none;
-        width: 100%;
-        border-top: none;
+    
+    /* FIX 1: Empurra o conteúdo do site pra baixo para não ficar atrás do header */
+    body {
+        padding-top: 80px; 
     }
+
+    /* FIX 2: Header Fixo, Preto e no Topo */
+    #main-header {
+        z-index: 2001 !important; /* Ganha do overlay */
+        position: fixed !important; 
+        top: 0; left: 0; width: 100%;
+        background-color: #050505 !important; /* FUNDO PRETO SÓLIDO (Resolve o texto misturado) */
+        border-bottom: 1px solid #222;
+        height: 80px; /* Garante a altura */
+    }
+
+    /* O Menu Lateral */
+    .nav-menu {
+        display: flex; flex-direction: column; 
+        position: fixed; top: 0; right: -100%;
+        width: 80%; max-width: 320px; height: 100vh;
+        background-color: #1a1a1a; border-left: 1px solid #333;
+        z-index: 2002; /* Acima de tudo */
+        padding: 90px 30px; overflow-y: auto;
+        transition: right 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        box-shadow: -10px 0 50px #000;
+    }
+    .nav-menu.active { right: 0; }
     
-    /* Exibe ao hover (ou click se tiver JS) */
-    .static-item:hover .mega-menu { display: block; }
+    .nav-link { display: block; padding: 15px 0; font-size: 1.1rem; border-bottom: 1px solid #333; color: #fff; }
+    .mobile-only-item { display: block; margin-top: 30px; padding-top: 20px; border-top: 1px solid #444; }
+
+    .mega-menu { display: none; } 
     
-    .mega-content { flex-direction: column; gap: 30px; }
-    .mega-image-col { display: none; }
+    .mobile-menu-toggle.active .bar:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); background: var(--color-gold-primary); }
+    .mobile-menu-toggle.active .bar:nth-child(2) { opacity: 0; }
+    .mobile-menu-toggle.active .bar:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); background: var(--color-gold-primary); }
+}
+/* ==========================================================================
+   FIX CARRINHO NO MENU MOBILE (BADGE DOURADA)
+   ========================================================================== */
+
+/* 1. O Link do Carrinho no Menu Mobile */
+.mobile-only-item a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important; /* Texto na esq, bolinha na dir */
+    width: 100% !important;
 }
 
-@keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+/* 2. Esconde o texto antigo e bugado gerado pelo JS */
+.mobile-only-item .cart-count-display {
+    display: none !important; /* Esconde o número solto */
+}
 
-/* ==========================================================================
-   7. HERO CAROUSEL
+/* 3. Cria a Bolinha Dourada (Badge) se tiver itens */
+/* Usamos uma classe que você vai adicionar no HTML abaixo */
+.mobile-cart-badge {
+    background-color: var(--color-gold-primary);
+    color: #000;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 12px; /* Formato de pílula */
+    margin-left: 10px;
+    display: none; /* Só aparece via JS se tiver itens */
+}
+
+/* 6. HERO & SECTIONS
    ========================================================================== */
 .hero-carousel {
-    position: relative;
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
+    position: relative; height: 100vh; width: 100%; overflow: hidden;
     margin-top: calc(var(--header-height) * -1);
 }
-
 .slide {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out, transform 6s ease;
-    z-index: 1;
-    transform: scale(1);
-}
-
-.slide.active { opacity: 1; z-index: 2; transform: scale(1.05); }
-
-.slide::after {
-    content: '';
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover; background-position: center; opacity: 0;
+    transition: opacity 1.5s, transform 6s; z-index: 1; transform: scale(1);
+}
+.slide.active { opacity: 1; z-index: 2; transform: scale(1.05); }
+.slide::after {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
 }
-
 .hero-content {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 10;
-    width: 90%;
-    max-width: 800px;
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    text-align: center; z-index: 10; width: 90%; max-width: 800px;
 }
-
 .hero-subtitle {
-    display: block;
-    font-size: 1rem;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--color-gold-primary);
-    margin-bottom: 15px;
-    animation: fadeUp 1s ease 0.5s backwards;
+    display: block; font-size: 1rem; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--color-gold-primary); margin-bottom: 15px; animation: fadeUp 1s ease 0.5s backwards;
 }
-
 .hero-content h1 {
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    margin-bottom: 30px;
-    text-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    animation: fadeUp 1s ease 0.7s backwards;
+    font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: 30px;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.5); animation: fadeUp 1s ease 0.7s backwards;
 }
-
 .hero-content .btn-gold { animation: fadeUp 1s ease 1s backwards; }
 
-@keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* ==========================================================================
-   8. TRUST BAR
-   ========================================================================== */
+/* Trust Bar */
 .trust-bar {
-    background-color: var(--color-bg-secondary);
-    padding: 60px 20px;
-    display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;
-    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-bg-secondary); padding: 60px 20px;
+    display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; border-bottom: 1px solid var(--color-border);
 }
-
 .trust-item { display: flex; align-items: center; gap: 20px; max-width: 300px; }
 .trust-item i { font-size: 2rem; color: var(--color-gold-primary); }
 .trust-item h4 { font-size: 0.9rem; margin-bottom: 5px; color: #fff; }
 .trust-item p { font-size: 0.8rem; color: #888; line-height: 1.4; }
 
-/* ==========================================================================
-   9. CATEGORIES & PRODUCTS GRID
+/* 7. PRODUCTS GRID & VITRINE
    ========================================================================== */
 .categories-section, .products-section { padding: 100px 20px; }
-
 .categories-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    max-width: var(--max-width);
-    margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px; max-width: var(--max-width); margin: 0 auto;
 }
-
-.category-card {
-    position: relative; height: 450px; overflow: hidden; cursor: pointer;
-}
-
-.category-card img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
+.category-card { position: relative; height: 450px; overflow: hidden; cursor: pointer; }
+.category-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s; }
 .category-card:hover img { transform: scale(1.1); }
-
 .category-overlay {
     position: absolute; bottom: 0; left: 0; width: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-    padding: 40px;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px;
 }
+.category-overlay h3 { font-size: 1.8rem; color: #fff; transition: transform 0.3s; }
 
-.category-overlay h3 {
-    font-size: 1.8rem; color: #fff;
-    transform: translateY(0); transition: transform 0.3s;
-}
-
-/* VITRINE PRODUTOS */
+/* Product Cards */
 .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 40px;
-    max-width: var(--max-width);
-    margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 40px; max-width: var(--max-width); margin: 0 auto;
 }
-
 .product-card { background-color: transparent; transition: transform 0.3s; position: relative; }
+.product-card:hover { transform: translateY(-5px); border-color: var(--color-border); }
+.product-card:hover img { transform: scale(1.05); }
 
-@media (hover: hover) {
-    .product-card:hover {
-        transform: translateY(-5px);
-        border-color: var(--color-border);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-.product-card:hover img { 
-    transform: scale(1.05); 
-    /* Removi o opacity: 0.8 para a imagem ficar nítida e brilhante */
-}    .product-card:hover .btn-shop { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-}
-
-.product-card:active img { opacity: 0.9; }
-
-.product-badge {
-    position: absolute; top: 10px; right: 10px;
-    padding: 6px 12px; font-size: 0.65rem; font-weight: 700;
-    text-transform: uppercase; z-index: 5; letter-spacing: 1px;
-}
-.badge-pronta { background-color: var(--color-gold-primary); color: #000; }
-.badge-encomenda { background-color: rgba(0,0,0,0.8); color: #fff; border: 1px solid #333; }
-
-
+/* --- FIX: REMOÇÃO DEFINITIVA DAS BADGES (SOB ENCOMENDA) --- */
+.product-badge { display: none !important; }
 
 .product-info { text-align: center; margin-top: 15px; }
 .product-brand { display: block; font-size: 0.75rem; color: var(--color-text-muted); text-transform: uppercase; margin-bottom: 5px; }
 .product-name { font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px; }
 .product-price { color: var(--color-gold-primary); font-weight: 600; }
 
-/* ==========================================================================
-   10. ABOUT SECTION & NEWSLETTER
+/* Filtros */
+.filter-container { width: 100%; border-bottom: 1px solid #222; margin-bottom: 30px; padding: 15px 0; background-color: #0a0a0a; z-index: 90; }
+.filter-scroll { display: flex; justify-content: center; gap: 15px; overflow-x: auto; padding: 0 20px; scrollbar-width: none; }
+.filter-scroll::-webkit-scrollbar { display: none; }
+@media (max-width: 768px) { .filter-scroll { justify-content: flex-start; } }
+
+.filter-btn {
+    background: transparent; border: 1px solid #333; color: #888;
+    padding: 8px 20px; border-radius: 30px; font-size: 0.9rem; cursor: pointer;
+    transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+}
+.filter-btn:hover { border-color: #666; color: #fff; }
+.filter-btn.active { background-color: var(--color-gold-primary); border-color: var(--color-gold-primary); color: #000; font-weight: 600; }
+
+/* 8. PÁGINA DE PRODUTO & GALERIA
    ========================================================================== */
-.about-section { padding: 120px 20px; background-color: #080808; }
-.about-section .container-limitado { display: flex; align-items: center; gap: 80px; }
+.p-image-col { display: flex; flex-direction: column; gap: 15px; }
+.main-media-stage {
+    width: 100%; aspect-ratio: 3 / 4; background-color: #050505;
+    border: 1px solid #222; border-radius: 4px; overflow: hidden;
+    position: relative; display: flex; align-items: center; justify-content: center;
+}
+.media-element { width: 100%; height: 100%; object-fit: contain; }
+.fade-in { animation: fadeInMedia 0.4s ease; }
+@keyframes fadeInMedia { from { opacity: 0.8; } to { opacity: 1; } }
 
-.about-text { flex: 1; }
-.about-text p { margin-bottom: 20px; color: var(--color-text-secondary); font-size: 1.1rem; }
-.text-link { color: var(--color-gold-primary); font-weight: 600; border-bottom: 1px solid transparent; }
-.text-link:hover { border-color: var(--color-gold-primary); }
+.gallery-thumbs { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; }
+.gallery-thumbs::-webkit-scrollbar { height: 4px; }
+.gallery-thumbs::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
 
-.about-image { flex: 1; position: relative; }
-.about-image img { border-radius: 2px; position: relative; z-index: 2; filter: contrast(1.1); }
-.gold-border {
-    position: absolute; top: 30px; right: -30px;
-    width: 100%; height: 100%;
-    border: 2px solid var(--color-gold-primary);
-    z-index: 1;
+.thumb-item {
+    min-width: 70px; width: 70px; height: 70px; border: 1px solid #333;
+    border-radius: 4px; cursor: pointer; overflow: hidden; opacity: 0.6;
+    transition: 0.2s; background-color: #000; position: relative;
+}
+.thumb-item img { width: 100%; height: 100%; object-fit: cover; }
+.thumb-item:hover, .thumb-item.active { opacity: 1; border-color: var(--color-gold-primary); }
+.thumb-video-icon {
+    width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+    background: #111; color: #fff; font-size: 1.2rem;
 }
 
-.newsletter-section {
-    padding: 100px 20px; background-color: var(--color-bg-secondary);
-    text-align: center; border-top: 1px solid var(--color-border);
-}
-.newsletter-content p {
-    color: var(--color-text-secondary);
-    margin-bottom: 40px; /* AUMENTADO: Antes estava padrão (aprox 15px), agora 40px */
-    font-size: 1.1rem;
-}
-.newsletter-content h3 { font-size: 2rem; color: var(--color-gold-primary); margin-bottom: 15px; }
-.newsletter-form { display: flex; justify-content: center; gap: 10px; margin-top: 30px; flex-wrap: wrap; }
-.newsletter-form input {
-    padding: 15px 20px; width: 350px;
-    background-color: #000; border: 1px solid #333; color: #fff;
-    outline: none; transition: border 0.3s;
-}
-.newsletter-form input:focus { border-color: var(--color-gold-primary); }
-
-/* ==========================================================================
-   FOOTER REDESIGNED (LUXURY STYLE)
-   ========================================================================== */
-.main-footer {
-    background-color: #050505; /* Preto profundo */
-    padding: 80px 0 40px;
-    border-top: 1px solid #222;
-    font-family: var(--font-primary);
+/* --- SELETOR DE TAMANHOS (CORRIGIDO: TEXTO PRETO NO SELECIONADO) --- */
+.size-selector {
+    margin: 30px 0;
+    text-align: center;
 }
 
-.footer-content {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1fr; /* Coluna da marca maior */
-    gap: 60px;
-    margin-bottom: 80px;
-}
-
-/* Títulos das Colunas */
-.footer-col h4 {
-    font-family: var(--font-display);
-    font-size: 1.1rem; /* Aumentado */
-    color: var(--color-gold-primary);
-    margin-bottom: 30px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-/* Textos e Links */
-.footer-col p {
-    color: #888;
-    font-size: 1rem; /* Fonte maior para leitura */
-    line-height: 1.8;
-    margin-bottom: 25px;
-}
-
-.footer-col a:not(.footer-btn):not(.social-links a) {
+.size-label {
     display: block;
-    color: #b0b0b0; /* Cinza claro, melhor contraste */
-    font-size: 1rem; /* Aumentado de 0.8rem para 1rem */
-    margin-bottom: 18px; /* Mais espaçamento entre links */
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.footer-col a:hover {
-    color: var(--color-gold-primary);
-    transform: translateX(5px);
-}
-
-/* Logo Grande no Footer */
-.footer-logo {
-    font-family: var(--font-display);
-    font-size: 2.5rem;
+    font-size: 1rem;
     color: #fff;
-    display: block;
     margin-bottom: 20px;
-    letter-spacing: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-/* Redes Sociais (Botões Grandes) */
-.social-links {
+.sizes-grid {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 15px;
 }
 
-.social-links a {
-    width: 45px; height: 45px;
-    background-color: #111;
-    border: 1px solid #333;
-    display: flex; align-items: center; justify-content: center;
-    color: #fff;
-    font-size: 1.2rem;
-    transition: all 0.3s;
-}
-
-.social-links a:hover {
-    border-color: var(--color-gold-primary);
-    color: var(--color-gold-primary);
-}
-
-/* Botão de WhatsApp no Footer */
-.footer-btn {
-    display: inline-flex;
-    align-items: center; gap: 10px;
+.size-btn {
     background: transparent;
     border: 1px solid #444;
-    color: #fff;
-    padding: 12px 25px;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s;
-}
-.footer-btn:hover {
-    border-color: #25D366; /* Cor do Zap */
-    color: #25D366;
-}
-
-/* Parte Inferior e Pagamentos */
-.footer-bottom {
-    border-top: 1px solid #1a1a1a;
-    padding-top: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
-.payment-methods {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.payment-methods span {
-    color: #666;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.payment-methods i {
-    font-size: 2rem; /* Ícones grandes */
-    color: #ccc;
-    transition: color 0.3s;
-}
-
-.payment-methods i:hover { color: #fff; }
-
-.footer-bottom p {
-    color: #444;
-    font-size: 0.85rem;
-}
-
-/* Responsivo Mobile */
-@media (max-width: 900px) {
-    .footer-content {
-        grid-template-columns: 1fr; /* Uma coluna só */
-        gap: 40px;
-        text-align: left; /* Alinhamento à esquerda fica mais elegante em listas */
-    }
+    color: #aaa; /* Cor padrão (cinza) */
     
-    .brand-col { text-align: left; }
-    
-    .footer-logo { font-size: 2rem; }
-    
-    .payment-methods {
-        flex-direction: column;
-        gap: 15px;
-    }
+    min-width: 70px;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 4px;
 }
-/* ==========================================================================
-   CARRINHO LATERAL (SIDEBAR CART)
+
+/* Efeito ao passar o mouse (QUANDO NÃO ESTÁ SELECIONADO) */
+.size-btn:hover {
+    border-color: var(--color-gold-primary);
+    color: #fff; /* Fica branco ao passar o mouse */
+    transform: translateY(-2px);
+}
+
+/* ESTADO SELECIONADO */
+.size-btn.selected {
+    background-color: var(--color-gold-primary);
+    border-color: var(--color-gold-primary);
+    
+    /* AQUI: Forçamos preto para dar leitura no fundo dourado */
+    color: #000 !important; 
+    
+    font-weight: 800;
+    box-shadow: 0 5px 15px rgba(191, 161, 95, 0.3);
+    transform: scale(1.05); /* Cresce um pouquinho pra confirmar */
+}
+
+/* Garante que, mesmo passando o mouse no selecionado, continue preto */
+.size-btn.selected:hover {
+    color: #000 !important;
+}
+
+/* Tamanho Indisponível */
+.size-btn.disabled {
+    opacity: 0.4; cursor: not-allowed !important; pointer-events: none;
+    background: linear-gradient(to top right, transparent 48%, #555 49%, #555 51%, transparent 52%);
+    color: #444; border-color: #222;
+}
+
+/* --- BOTÃO "ADICIONAR AO CARRINHO" --- */
+.p-info-col .btn-gold.btn-block {
+    margin-top: 40px !important;
+    padding: 20px !important;
+    font-size: 1.2rem !important;
+    display: block; width: 100%; text-align: center;
+    max-width: 500px; margin-left: auto; margin-right: auto;
+}
+
+/* 9. CARRINHO LATERAL (OFIX)
    ========================================================================== */
-/* 1. A Cortina Escura (Fica atrás do carrinho) */
 .cart-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    
-    /* Ajustei a cor para ficar luxuoso: preto com 80% de opacidade */
-    background: rgba(0, 0, 0, 0.8); 
-    
-    /* O "blur" deixa o site embaçado no fundo */
-    backdrop-filter: blur(5px); 
-    -webkit-backdrop-filter: blur(5px); /* Para funcionar no Safari/iPhone */
-    
-    /* Camada Alta, mas menor que a do carrinho */
-    z-index: 1000; 
-    
-    opacity: 0; visibility: hidden;
-    transition: all 0.4s ease;
+    background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px);
+    z-index: 1000; opacity: 0; visibility: hidden; transition: 0.4s ease;
 }
-
-/* 2. O Carrinho (Fica NA FRENTE de tudo) */
-.cart-sidebar {
-    position: fixed; top: 0; right: -100%;
-    width: 450px; /* Aumentei um pouco para dar mais ar luxuoso */
-    height: 100%;
-    
-    background-color: #0a0a0a; /* Fundo sólido para não vazar o site atrás */
-    border-left: 1px solid #333;
-    
-    /* O SEGREDO: z-index maior que o da overlay (1001 > 1000) */
-    z-index: 1001; 
-    
-    display: flex; flex-direction: column;
-    transition: right 0.5s cubic-bezier(0.19, 1, 0.22, 1); /* Animação mais suave */
-    box-shadow: -10px 0 50px rgba(0,0,0,0.9);
-}
-
-/* Responsivo para Celular */
-@media (max-width: 480px) {
-    .cart-sidebar { width: 100%; } 
-}
-
-/* Estado Aberto */
-.body-no-scroll { overflow: hidden; }
-.cart-sidebar.open { right: 0; }
 .cart-overlay.open { opacity: 1; visibility: visible; }
 
-/* Header do Carrinho */
+.cart-sidebar {
+    position: fixed; top: 0; right: -100%;
+    width: 450px; height: 100%;
+    background-color: #0a0a0a; border-left: 1px solid #333;
+    z-index: 1001; display: flex; flex-direction: column;
+    transition: right 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    box-shadow: -10px 0 50px rgba(0,0,0,0.9);
+}
+.cart-sidebar.open { right: 0; }
+
+/* HEADER DO CARRINHO (FIX BLINDADO) */
 .cart-header {
-    padding: 20px;
-    border-bottom: 1px solid #222;
-    display: flex; justify-content: space-between; align-items: center;
-    background-color: #000;
-}
-.cart-header h3 { font-size: 1.1rem; color: #fff; margin: 0; }
-.close-cart { font-size: 2rem; color: #fff; line-height: 1; }
-.close-cart:hover { color: var(--color-gold-primary); }
-
-/* Lista de Itens */
-.cart-items {
-    flex: 1; overflow-y: auto; padding: 20px;
+    flex-shrink: 0; padding: 25px 30px;
+    background-color: #0a0a0a; border-bottom: 1px solid #222;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 10;
 }
 
+/* TÉCNICA DO HOLOGRAMA (Esconde o bug e mostra o limpo) */
+.cart-header h2 {
+    visibility: hidden; /* Esconde o texto que o JS buga */
+    position: relative; width: auto; min-width: 150px; margin: 0;
+    display: flex; align-items: center;
+}
+/* Força sumir qualquer lixo dentro do h2 */
+.cart-header h2 span, .cart-header h2 i, .cart-header h2 .cart-count-display { display: none !important; }
+
+/* Cria o Texto Perfeito por cima */
+.cart-header h2::after {
+    content: "SEU CARRINHO"; visibility: visible;
+    position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+    font-size: 1.2rem; color: #fff; font-family: 'Cinzel', serif;
+    text-transform: uppercase; letter-spacing: 1px; white-space: nowrap;
+}
+
+.close-cart {
+    font-size: 2rem; color: #fff; background: none; border: none;
+    line-height: 1; cursor: pointer; transition: color 0.3s;
+}
+.close-cart:hover { color: var(--color-danger); }
+
+/* LISTA DE PRODUTOS */
+.cart-items { flex: 1; overflow-y: auto; padding: 20px 30px; }
 .cart-item {
     display: flex; gap: 15px; margin-bottom: 20px;
     padding-bottom: 20px; border-bottom: 1px solid #222;
     animation: fadeIn 0.3s ease;
 }
+.cart-item img { width: 80px; height: 100px; object-fit: cover; border-radius: 4px; border: 1px solid #333; }
+.cart-item-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.cart-item-title { font-size: 1rem; font-weight: 600; color: #fff; margin-bottom: 5px; line-height: 1.3; }
+.cart-item-price { color: var(--color-gold-primary); font-size: 1rem; font-weight: 600; }
 
-.cart-item img {
-    width: 70px; height: 70px; object-fit: cover; border-radius: 4px;
+.remove-item, .remove-btn {
+    font-size: 0.8rem; color: #666; text-decoration: underline; cursor: pointer;
+    margin-top: 8px; align-self: flex-start;
 }
-
-.cart-item-info { flex: 1; }
-.cart-item-title { font-size: 0.9rem; font-weight: 600; color: #fff; display: block; margin-bottom: 5px; }
-.cart-item-price { color: var(--color-gold-primary); font-size: 0.85rem; }
-
-.remove-item {
-    color: #666; font-size: 0.75rem; text-decoration: underline; cursor: pointer; margin-top: 5px; display: inline-block;
-}
-.remove-item:hover { color: var(--color-danger); }
-
+.remove-item:hover, .remove-btn:hover { color: var(--color-danger); }
 .empty-cart-msg { text-align: center; color: #666; margin-top: 50px; }
 
-/* Footer do Carrinho */
-.cart-footer {
-    padding: 25px; background-color: #000; border-top: 1px solid #222;
-}
+/* FOOTER DO CARRINHO */
+.cart-footer { padding: 30px; background-color: #080808; border-top: 1px solid #222; flex-shrink: 0; }
+.shipping-row { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.9rem; color: #ccc; }
+.shipping-status { color: var(--color-gold-primary); text-transform: uppercase; }
 .cart-total {
-    display: flex; justify-content: space-between;
-    font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 1.4rem; color: #fff; font-family: var(--font-display); margin-bottom: 20px;
 }
 #cart-total-value { color: var(--color-gold-primary); }
 
-.btn-block { width: 100%; text-align: center; }
-
-/* Responsivo Mobile */
 @media (max-width: 480px) {
-    .cart-sidebar { width: 100%; } /* Ocupa tela toda no celular */
-}
-/* Garante que o item "Carrinho" dentro do menu só apareça em telas menores */
-.mobile-only-item {
-    display: none;
+    .cart-sidebar { width: 85%; }
+    .cart-header { padding: 20px; height: 70px; }
+    .cart-items { padding: 20px; }
+    .cart-item img { width: 70px; height: 90px; }
+    .cart-item-title { font-size: 1rem; }
 }
 
-@media (max-width: 1024px) {
-    .mobile-only-item {
-        display: block;
-        margin-top: 20px;
-        border-top: 1px solid #333; /* Uma linha para separar */
-        padding-top: 20px;
-    }
-}
-/* ==========================================================================
-   OVERLAY DO MENU MOBILE (CORTINA ESCURA)
+/* 10. FOOTER SITE & PAGINAS TEXTO
    ========================================================================== */
-#mobile-menu-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Fundo Escuro */
-    backdrop-filter: blur(5px); /* Desfoque estilo iOS */
-    -webkit-backdrop-filter: blur(5px);
-
-    z-index: 90; /* Fica logo abaixo do menu (que é 1000) */
-
-    opacity: 0; 
-    visibility: hidden;
-    transition: all 0.3s ease;
+.main-footer { background-color: #050505; padding: 80px 0 40px; border-top: 1px solid #222; }
+.footer-content { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 80px; }
+.footer-col h4 { font-size: 1.1rem; color: var(--color-gold-primary); margin-bottom: 30px; letter-spacing: 2px; }
+.footer-col p { color: #888; font-size: 1rem; line-height: 1.8; margin-bottom: 25px; }
+.footer-col a:not(.footer-btn):not(.social-links a) {
+    display: block; color: #b0b0b0; font-size: 1rem; margin-bottom: 18px; transition: 0.3s;
 }
-/* ==========================================================================
-   PÁGINAS DE TEXTO (POLÍTICAS)
-   ========================================================================== */
+.footer-col a:hover { color: var(--color-gold-primary); transform: translateX(5px); }
+.footer-logo { font-family: var(--font-display); font-size: 2.5rem; color: #fff; display: block; margin-bottom: 20px; }
 
-.policy-section {
-    padding: 0 20px 100px;
+.social-links { display: flex; gap: 15px; }
+.social-links a {
+    width: 45px; height: 45px; background-color: #111; border: 1px solid #333;
+    display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.2rem; transition: 0.3s;
 }
+.social-links a:hover { border-color: var(--color-gold-primary); color: var(--color-gold-primary); }
 
-/* Limita a largura do texto para facilitar a leitura (como num livro) */
-.policy-content {
-    max-width: 800px; 
-    margin: 0 auto;
+.footer-btn {
+    display: inline-flex; align-items: center; gap: 10px; background: transparent;
+    border: 1px solid #444; color: #fff; padding: 12px 25px; font-size: 0.9rem;
+    text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
 }
+.footer-btn:hover { border-color: #25D366; color: #25D366; }
 
-.policy-block {
-    margin-bottom: 50px;
-    border-bottom: 1px solid #1a1a1a;
-    padding-bottom: 30px;
+.footer-bottom {
+    border-top: 1px solid #1a1a1a; padding-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 20px;
 }
+.payment-methods { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center; }
+.payment-methods i { font-size: 2rem; color: #ccc; transition: 0.3s; }
+.payment-methods i:hover { color: #fff; }
 
-.policy-block:last-child { border-bottom: none; }
-
-.policy-block h3 {
-    color: var(--color-gold-primary);
-    font-size: 1.3rem;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
+@media (max-width: 900px) {
+    .footer-content { grid-template-columns: 1fr; gap: 40px; text-align: left; }
+    .payment-methods { flex-direction: column; gap: 15px; }
 }
 
-.policy-block p, 
-.policy-block li {
-    color: #b0b0b0; /* Cinza claro para leitura confortável */
-    line-height: 1.8;
-    font-size: 1rem;
-    margin-bottom: 15px;
-}
+/* Newsletter & About */
+.about-section { padding: 120px 20px; background-color: #080808; }
+.about-section .container-limitado { display: flex; align-items: center; gap: 80px; }
+.about-text { flex: 1; }
+.about-text p { margin-bottom: 20px; color: var(--color-text-secondary); font-size: 1.1rem; }
+.about-image { flex: 1; position: relative; }
+.about-image img { border-radius: 2px; position: relative; z-index: 2; filter: contrast(1.1); }
+.gold-border { position: absolute; top: 30px; right: -30px; width: 100%; height: 100%; border: 2px solid var(--color-gold-primary); z-index: 1; }
 
-.policy-block ul {
-    list-style: disc;
-    padding-left: 20px;
-    margin-bottom: 20px;
-    color: #666; /* Bolinhas da lista mais escuras */
+.newsletter-section { padding: 100px 20px; background-color: var(--color-bg-secondary); text-align: center; border-top: 1px solid var(--color-border); }
+.newsletter-content p { color: var(--color-text-secondary); margin-bottom: 40px; font-size: 1.1rem; }
+.newsletter-content h3 { font-size: 2rem; color: var(--color-gold-primary); margin-bottom: 15px; }
+.newsletter-form { display: flex; justify-content: center; gap: 10px; margin-top: 30px; flex-wrap: wrap; }
+.newsletter-form input {
+    padding: 15px 20px; width: 350px; background-color: #000; border: 1px solid #333; color: #fff; outline: none; transition: 0.3s;
 }
+.newsletter-form input:focus { border-color: var(--color-gold-primary); }
+@media (max-width: 900px) { .about-section .container-limitado { flex-direction: column; } }
 
-.policy-block strong {
-    color: #fff; /* Destaque em branco */
-    font-weight: 600;
-}
-
-/* Caixa de Alerta Final */
-.policy-alert {
-    background-color: rgba(191, 161, 95, 0.1); /* Fundo dourado muito suave */
-    border: 1px solid var(--color-gold-primary);
-    padding: 20px;
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    border-radius: 4px;
-    margin-top: 40px;
-}
-
-.policy-alert i {
-    color: var(--color-gold-primary);
-    font-size: 1.5rem;
-}
-
-.policy-alert p {
-    color: #fff;
-    font-size: 0.9rem;
-    margin: 0;
-}
-
-@media (max-width: 768px) {
-    .policy-alert { flex-direction: column; text-align: center; }
-}
-/* ==========================================================================
-   FIX PÁGINA DE MARCAS (GRID RESGATE)
-   ========================================================================== */
-
-/* 1. O Grid (A Grade que segura os cards) */
-.brand-grid { 
-    display: grid !important; /* !important garante que sobrescreva qualquer erro */
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Cards responsivos */
-    gap: 20px; 
-    padding: 50px 0; 
-    max-width: var(--max-width); 
-    margin: 0 auto; 
-    width: 100%;
-}
-
-/* 2. O Card (O quadrado preto de cada marca) */
+/* Grid de Marcas & Políticas */
+.brand-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; padding: 50px 0; max-width: var(--max-width); margin: 0 auto; width: 100%; }
 .brand-card {
-    background: #0a0a0a; 
-    border: 1px solid #222; 
-    height: 120px;
-    display: flex !important; /* Garante flexbox */
-    align-items: center; 
-    justify-content: center;
-    
-    /* Tipografia */
-    color: #fff;
-    font-family: var(--font-display); 
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 1rem;
-    text-decoration: none;
-    
-    transition: all 0.3s ease;
+    background: #0a0a0a; border: 1px solid #222; height: 120px; display: flex; align-items: center; justify-content: center;
+    color: #fff; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 1px; font-size: 1rem; transition: 0.3s;
 }
+.brand-card:hover { border-color: var(--color-gold-primary); color: var(--color-gold-primary); transform: translateY(-5px); background-color: #111; }
 
-/* 3. Efeito Hover (Ao passar o mouse) */
-.brand-card:hover { 
-    border-color: var(--color-gold-primary); 
-    color: var(--color-gold-primary); 
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    background-color: #111;
-}
-/* ==========================================================================
-   ATUALIZAÇÃO CARRINHO (FRETE A COMBINAR)
-   ========================================================================== */
-
-.cart-footer {
-    border-top: 1px solid #222;
-    padding: 20px;
-    background-color: #0a0a0a;
-}
-
-.cart-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    font-size: 0.95rem;
-    color: #ccc;
-}
-
-.shipping-row span:first-child {
-    color: #888; /* Rótulo "Frete" mais apagado */
-}
-
-.shipping-status {
-    color: var(--color-gold-primary); /* Destaque dourado */
-    font-size: 0.85rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-/* Ajuste no Total para ficar maior */
-.cart-total {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #222; /* Separa o frete do total */
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    color: #fff;
-}
-
-.cart-total span:last-child {
-    color: var(--color-gold-primary);
-}
-/* Filtros de Categoria */
-.filter-container {
-    width: 100%;
-    border-bottom: 1px solid #222;
-    margin-bottom: 30px;
-    padding: 15px 0;
-    background-color: #0a0a0a;
-    top: 80px; /* Ajuste conforme a altura do seu header */
-    z-index: 90;
-}
-
-.filter-scroll {
-    display: flex;
-    justify-content: center; /* Centraliza no PC */
-    gap: 15px;
-    overflow-x: auto; /* Permite rolar no celular */
-    white-space: nowrap;
-    padding: 0 20px;
-    
-    /* Esconde a barra de rolagem feia */
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-
-/* Esconde barra de rolagem no Chrome/Safari */
-.filter-scroll::-webkit-scrollbar {
-    display: none;
-}
-
-.filter-btn {
-    background: transparent;
-    border: 1px solid #333;
-    color: #888;
-    padding: 8px 20px;
-    border-radius: 30px; /* Botão pílula arredondado */
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.filter-btn:hover {
-    border-color: #666;
-    color: #fff;
-}
-
-/* Estado Ativo (Selecionado) */
-.filter-btn.active {
-    background-color: var(--color-gold-primary);
-    border-color: var(--color-gold-primary);
-    color: #000; /* Texto preto no fundo dourado fica show */
-    font-weight: 600;
-}
-
-/* Ajuste Mobile: Alinhar à esquerda para facilitar o scroll */
-@media (max-width: 768px) {
-    .filter-scroll {
-        justify-content: flex-start;
-    }
-}
-/* ==========================================================================
-   GALERIA DE PRODUTO (FOTOS + VÍDEOS)
-   ========================================================================== */
-
-.p-image-col {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-/* 1. O Palco Principal (Imagem Grande) */
-.main-media-stage {
-    width: 100%;
-    /* Define uma altura fixa ou proporcional para não pular a tela */
-    aspect-ratio: 3 / 4; /* Formato retrato (estilo Instagram) */
-    background-color: #050505;
-    border: 1px solid #222;
-    border-radius: 4px;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.media-element {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* Mostra a foto inteira (use 'cover' se quiser preencher tudo cortando bordas) */
-    display: block;
-}
-
-/* Animação suave ao trocar foto */
-.fade-in {
-    animation: fadeInMedia 0.4s ease;
-}
-@keyframes fadeInMedia {
-    from { opacity: 0.8; }
-    to { opacity: 1; }
-}
-
-/* 2. As Miniaturas (Thumbnails) */
-.gallery-thumbs {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto; /* Permite rolar para o lado no celular */
-    padding-bottom: 5px;
-}
-
-/* Esconde barra de rolagem das thumbs */
-.gallery-thumbs::-webkit-scrollbar { height: 4px; }
-.gallery-thumbs::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
-
-.thumb-item {
-    min-width: 70px;
-    width: 70px;
-    height: 70px;
-    border: 1px solid #333;
-    border-radius: 4px;
-    cursor: pointer;
-    overflow: hidden;
-    opacity: 0.6;
-    transition: all 0.2s;
-    background-color: #000;
-    position: relative;
-}
-
-.thumb-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Miniatura sempre preenchida */
-}
-
-/* Estado Ativo (Selecionado) */
-.thumb-item:hover, .thumb-item.active {
-    opacity: 1;
-    border-color: var(--color-gold-primary); /* Borda Dourada */
-}
-
-/* Ícone para vídeo na miniatura */
-.thumb-video-icon {
-    width: 100%; height: 100%;
-    display: flex; align-items: center; justify-content: center;
-    background: #111; color: #fff; font-size: 1.2rem;
-}
-/* --- SELETOR DE MODO (Pronta Entrega vs Encomenda) --- */
-.stock-mode-selector {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    background: #111;
-    padding: 5px;
-    border-radius: 4px;
-    border: 1px solid #333;
-}
-
-.mode-btn {
-    flex: 1;
-    padding: 10px;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    color: #888;
-    border: 1px solid transparent;
-    border-radius: 2px;
-    transition: all 0.3s;
-    font-weight: 600;
-}
-
-.mode-btn.active {
-    background-color: var(--color-gold-primary);
-    color: #000;
-    border-color: var(--color-gold-primary);
-}
-
-/* --- BOTÃO DE TAMANHO DESATIVADO (RISCO DIAGONAL) --- */
-.size-btn.disabled {
-    opacity: 0.4;
-    cursor: not-allowed !important;
-    pointer-events: none; /* Impede clique */
-    
-    /* O Risco Diagonal CSS */
-    background: linear-gradient(
-        to top right, 
-        transparent 48%, 
-        #555 49%, 
-        #555 51%, 
-        transparent 52%
-    );
-    color: #444;
-    border-color: #222;
-}
-
-/* Ajuste visual quando desativado */
-.size-btn.disabled:hover {
-    border-color: #222;
-    color: #444;
-}
+.policy-section { padding: 0 20px 100px; }
+.policy-content { max-width: 800px; margin: 0 auto; }
+.policy-block { margin-bottom: 50px; border-bottom: 1px solid #1a1a1a; padding-bottom: 30px; }
+.policy-block:last-child { border-bottom: none; }
+.policy-block h3 { color: var(--color-gold-primary); font-size: 1.3rem; margin-bottom: 20px; letter-spacing: 1px; }
+.policy-block p, .policy-block li { color: #b0b0b0; line-height: 1.8; font-size: 1rem; margin-bottom: 15px; }
+.policy-alert { background-color: rgba(191, 161, 95, 0.1); border: 1px solid var(--color-gold-primary); padding: 20px; display: flex; gap: 15px; align-items: center; border-radius: 4px; margin-top: 40px; }
+.policy-alert i { color: var(--color-gold-primary); font-size: 1.5rem; }
+.policy-alert p { color: #fff; font-size: 0.9rem; margin: 0; }
+@media (max-width: 768px) { .policy-alert { flex-direction: column; text-align: center; } }

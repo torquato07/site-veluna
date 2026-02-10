@@ -18,9 +18,8 @@ window.produtosVeluna = [
         "assets/img/bone-verde-RL.jpeg"
     ],
     marca: "Ralph Lauren",
-    preco: 110.00,
+    preco: 109.90,
     categoria: "acessorios",
-    tipo: "encomenda"
 },
    
     {
@@ -31,9 +30,8 @@ window.produtosVeluna = [
         "assets/img/bone-rosa-RL.jpeg"
     ],
     marca: "Ralph Lauren",
-    preco: 110.00,
+    preco: 109.90,
     categoria: "acessorios",
-    tipo: "encomenda"
 },
     {
     id: 3,
@@ -43,9 +41,8 @@ window.produtosVeluna = [
         "assets/img/bone-preto-RL.jpeg"
     ],
     marca: "Ralph Lauren",
-    preco: 110.00,
-    categoria: "acessorios",
-    tipo: "encomenda"   
+    preco: 109.90,
+    categoria: "acessorios",   
 },
     {
     id: 4,
@@ -55,9 +52,8 @@ window.produtosVeluna = [
         "assets/img/bone-azul-branco-RL.jpeg"
     ],
     marca: "Ralph Lauren",
-    preco: 110.00,
-    categoria: "acessorios",
-    tipo: "encomenda"   
+    preco: 109.90,
+    categoria: "acessorios",   
 },
     {
     id: 5,
@@ -69,9 +65,8 @@ window.produtosVeluna = [
         "assets/img/bermuda-armani-preta.mp4",
     ],
     marca: "Armani",
-    preco: 111.00,
-    categoria: "shorts",
-    tipo: "encomenda"   
+    preco: 149.90,
+    categoria: "shorts",   
 },
 {
     id: 6,
@@ -83,9 +78,8 @@ window.produtosVeluna = [
         "assets/img/bermuda-RL-azulerosa.mp4"
     ],
     marca: "Ralph Lauren",
-    preco: 111.00,
-    categoria: "shorts",
-    tipo: "encomenda"   
+    preco: 149.90,
+    categoria: "shorts",   
 },
 {
     id: 7,
@@ -97,9 +91,8 @@ window.produtosVeluna = [
         "assets/img/bermuda-RL-pretaeazul.mp4"
     ],
     marca: "Ralph Lauren",
-    preco: 111.00,
-    categoria: "shorts",
-    tipo: "encomenda"   
+    preco: 149.90,
+    categoria: "shorts",   
 },
 {
     id: 8,
@@ -110,9 +103,8 @@ window.produtosVeluna = [
         "assets/img/bermuda-RL-pretalistrada .mp4"
     ],
     marca: "Ralph Lauren",
-    preco: 111.00,
-    categoria: "shorts",
-    tipo: "encomenda"   
+    preco: 149.90,
+    categoria: "shorts",   
 },
 {
     id: 9,
@@ -125,8 +117,7 @@ window.produtosVeluna = [
     ],
     marca: "Amiri",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 10,
@@ -139,8 +130,7 @@ window.produtosVeluna = [
     ],
     marca: "Amiri",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 11,
@@ -153,8 +143,7 @@ window.produtosVeluna = [
     ],
     marca: "Armani",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 11,
@@ -167,8 +156,7 @@ window.produtosVeluna = [
     ],
     marca: "Hugo Boss",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 12,
@@ -181,8 +169,7 @@ window.produtosVeluna = [
     ],
     marca: "Hugo Boss",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 13,
@@ -195,8 +182,7 @@ window.produtosVeluna = [
     ],
     marca: "Hugo Boss",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 14,
@@ -209,8 +195,7 @@ window.produtosVeluna = [
     ],
     marca: "Hugo Boss",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 15,
@@ -223,8 +208,7 @@ window.produtosVeluna = [
     ],
     marca: "Hugo Boss",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 16,
@@ -237,8 +221,7 @@ window.produtosVeluna = [
     ],
     marca: "Hugo Boss",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 17,
@@ -251,8 +234,7 @@ window.produtosVeluna = [
     ],
     marca: "Diesel",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 18,
@@ -264,8 +246,7 @@ window.produtosVeluna = [
     ],
     marca: "Lacoste",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 19,
@@ -278,8 +259,7 @@ window.produtosVeluna = [
     ],
     marca: "Louis Vuitton",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 20,
@@ -292,8 +272,7 @@ window.produtosVeluna = [
     ],
     marca: "Moncler",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 21,
@@ -306,8 +285,7 @@ window.produtosVeluna = [
     ],
     marca: "Ralph lauren",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 22,
@@ -320,8 +298,7 @@ window.produtosVeluna = [
     ],
     marca: "Ralph lauren",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 24,
@@ -334,8 +311,7 @@ window.produtosVeluna = [
     ],
     marca: "Ralph lauren",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 24,
@@ -347,8 +323,7 @@ window.produtosVeluna = [
     ],
     marca: "Tommy Hilfiger",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 25,
@@ -361,8 +336,7 @@ window.produtosVeluna = [
     ],
     marca: "Tommy Hilfiger",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 26,
@@ -375,8 +349,7 @@ window.produtosVeluna = [
     ],
     marca: "Tommy Hilfiger",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 27,
@@ -389,8 +362,7 @@ window.produtosVeluna = [
     ],
     marca: "Tommy Hilfiger",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 28,
@@ -403,8 +375,7 @@ window.produtosVeluna = [
     ],
     marca: "Diesel",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 29,
@@ -417,8 +388,6 @@ window.produtosVeluna = [
     marca: "Lacoste",
     preco: 199.90,
     categoria: "camisetas",
-    tipo: "hibrido", // <--- Mantenha isso para ganhar a etiqueta DOURADA na vitrine
-    estoqueBr: ["M", "GG"], // <--- O código da página interna vai ler isso e bloquear o P e o G.
 },
 {
     id: 30,
@@ -428,9 +397,8 @@ window.produtosVeluna = [
         "assets/img/bone-NIKE-azulescuro-logo-branca.jpeg",
     ],
     marca: "Nike",
-    preco: 99.90,
+    preco: 89.90,
     categoria: "acessorios",
-    tipo: "hibrido", // <--- Mantenha isso para ganhar a etiqueta DOURADA na vitrine
 },
 {
     id: 31,
@@ -440,9 +408,8 @@ window.produtosVeluna = [
         "assets/img/bone-NIKE-preto-logo-branca.jpeg",
     ],
     marca: "Nike",
-    preco: 99.90,
+    preco: 89.90,
     categoria: "acessorios",
-    tipo: "hibrido", // <--- Mantenha isso para ganhar a etiqueta DOURADA na vitrine
 },
 {
     id: 32,
@@ -453,9 +420,8 @@ window.produtosVeluna = [
         "assets/img/bone-NIKE-preto-logo-preta2.jpeg",
     ],
     marca: "Nike",
-    preco: 99.90,
+    preco: 89.90,
     categoria: "acessorios",
-    tipo: "hibrido", // <--- Mantenha isso para ganhar a etiqueta DOURADA na vitrine
 },
 {
     id: 33,
@@ -465,9 +431,8 @@ window.produtosVeluna = [
         "assets/img/bone-RL-azulclaro-logo-escrita.jpeg",
     ],
     marca: "Ralph Lauren",
-    preco: 99.90,
+    preco: 109.90,
     categoria: "acessorios",
-    tipo: "hibrido", // <--- Mantenha isso para ganhar a etiqueta DOURADA na vitrine
 },
 {
     id: 34,
@@ -477,9 +442,8 @@ window.produtosVeluna = [
         "assets/img/bone-RL-azulescuro-logo-simples.jpeg",
     ],
     marca: "Ralph Lauren",
-    preco: 99.90,
+    preco: 109.90,
     categoria: "acessorios",
-    tipo: "hibrido", // <--- Mantenha isso para ganhar a etiqueta DOURADA na vitrine
 },
 {
     id: 35,
@@ -489,9 +453,8 @@ window.produtosVeluna = [
         "assets/img/bone-RL-branco-logo-escrita.jpeg",
     ],
     marca: "Ralph Lauren",
-    preco: 99.90,
+    preco: 109.90,
     categoria: "acessorios",
-    tipo: "hibrido", // <--- Mantenha isso para ganhar a etiqueta DOURADA na vitrine
 },
 {
     id: 36,
@@ -501,9 +464,8 @@ window.produtosVeluna = [
         "assets/img/bone-RL-branco-logo-simples.jpeg",
     ],
     marca: "Ralph Lauren",
-    preco: 99.90,
+    preco: 109.90,
     categoria: "acessorios",
-    tipo: "hibrido", // <--- Mantenha isso para ganhar a etiqueta DOURADA na vitrine
 },
 {
     id: 37,
@@ -513,9 +475,8 @@ window.produtosVeluna = [
         "assets/img/bone-RL-preto-logo-escrita.jpeg",
     ],
     marca: "Ralph Lauren",
-    preco: 99.90,
+    preco: 109.90,
     categoria: "acessorios",
-    tipo: "hibrido", // <--- Mantenha isso para ganhar a etiqueta DOURADA na vitrine
 },
 {
     id: 38,
@@ -528,8 +489,7 @@ window.produtosVeluna = [
     ],
     marca: "Armani",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 39,
@@ -542,8 +502,7 @@ window.produtosVeluna = [
     ],
     marca: "Diesel",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas",   
 },
 {
     id: 40,
@@ -556,8 +515,7 @@ window.produtosVeluna = [
     ],
     marca: "Lacoste",
     preco: 159.90,
-    categoria: "camisetas",
-    tipo: "encomenda"   
+    categoria: "camisetas", 
 },
 {
     id: 41,
@@ -571,7 +529,6 @@ window.produtosVeluna = [
     marca: "Lacoste",
     preco: 159.90,
     categoria: "camisetas",
-    tipo: "encomenda"   
 },
 {
     id: 42,
@@ -585,6 +542,5 @@ window.produtosVeluna = [
     marca: "Lacoste",
     preco: 159.90,
     categoria: "camisetas",
-    tipo: "encomenda"   
 },
 ];

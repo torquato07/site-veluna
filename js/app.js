@@ -1,5 +1,5 @@
 /**
- * Véluna Representações - Core Application v6.0 (Cart System)
+ * Véluna Representações - Core Application v7.0 (Fixed)
  * Tech Lead: Gemini
  */
 
@@ -7,7 +7,7 @@
 
 const VelunaApp = {
     config: {
-        whatsappNumber: '5541997114692', // Número Atualizado
+        whatsappNumber: '5541997114692',
         currency: 'BRL',
         locale: 'pt-BR'
     },
@@ -16,7 +16,7 @@ const VelunaApp = {
         isMobileMenuOpen: false,
         isCartOpen: false,
         allProducts: [],
-        cart: [] // Array que guarda os itens do carrinho
+        cart: [] 
     },
 
     init() {
@@ -27,42 +27,97 @@ const VelunaApp = {
             console.error('❌ Data.js não carregado.');
         }
 
-        // 2. Carrega Carrinho Salvo (LocalStorage)
+        // 2. Carrega Carrinho Salvo
         this.loadCart();
 
-        // 3. Inicializa Módulos UI
+        // 3. Inicializa UI
         this.setupHeader();
         this.setupMobileMenu();
-        this.setupCartUI(); // Novo módulo do carrinho
+        this.setupCartUI();
         this.setupVitrine();
         this.setupMarcas();
         this.setupNewsletter();
         
-        // Atualiza contador inicial
-        this.updateCartCount();
+        // 4. Verifica se está na página de produto
+        const urlParams = new URLSearchParams(window.location.search);
+        const produtoId = urlParams.get('id');
+        if (produtoId) {
+            this.loadProductPage(produtoId);
+        }
+
+        this.updateCartUI();
     },
 
     // ============================================================
-    // MÓDULO DO CARRINHO (CART SYSTEM)
+    // GERENCIAMENTO DO CARRINHO (DATA & LOGIC)
+    // ============================================================
+
+    loadCart() {
+        const savedCart = localStorage.getItem('veluna_cart');
+        if (savedCart) {
+            this.state.cart = JSON.parse(savedCart);
+            this.updateCartUI();
+        }
+    },
+
+    saveCart() {
+        localStorage.setItem('veluna_cart', JSON.stringify(this.state.cart));
+        this.updateCartUI();
+    },
+
+    addToCart(id) {
+        const produto = this.state.allProducts.find(p => p.id == id);
+        
+        const btnSelecionado = document.querySelector('.size-btn.selected');
+        if (!btnSelecionado) {
+            alert("Por favor, selecione um tamanho.");
+            return;
+        }
+        const tamanhoSelecionado = btnSelecionado.textContent;
+
+        const itemExistente = this.state.cart.find(item => item.id === id && item.tamanho === tamanhoSelecionado);
+
+        if (itemExistente) {
+            itemExistente.quantidade++;
+        } else {
+            this.state.cart.push({
+                id: produto.id,
+                nome: produto.nome,
+                marca: produto.marca,
+                preco: produto.preco,
+                tamanho: tamanhoSelecionado,
+                imagem: produto.imagem,
+                quantidade: 1
+            });
+        }
+
+        this.saveCart(); // Salva no LocalStorage
+        this.openCart(); // Abre o carrinho visualmente
+    },
+
+    removeFromCart(index) {
+        this.state.cart.splice(index, 1);
+        this.saveCart();
+    },
+
+    // ============================================================
+    // INTERFACE DO CARRINHO (UI)
     // ============================================================
     
-    // Configura eventos de abrir/fechar e checkout
     setupCartUI() {
-        // Agora buscamos por CLASSE (.js-open-cart), não mais por ID
-        // Isso permite ter o botão no Header Desktop E no Menu Mobile ao mesmo tempo
         const openBtns = document.querySelectorAll('.js-open-cart');
         const closeBtn = document.querySelector('.close-cart');
         const overlay = document.getElementById('cart-overlay');
         const checkoutBtn = document.getElementById('checkout-btn');
 
-        // Adiciona o evento de clique em TODOS os botões de abrir carrinho encontrados
         openBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 this.toggleCart(true);
-                // Fecha o menu mobile se estiver aberto, para melhor UX
                 if(this.state.isMobileMenuOpen) {
-                    document.querySelector('.mobile-menu-toggle').click(); 
+                    // Fecha menu mobile se estiver aberto
+                    const menuToggle = document.querySelector('.mobile-menu-toggle');
+                    if(menuToggle) menuToggle.click(); 
                 }
             });
         });
@@ -82,163 +137,218 @@ const VelunaApp = {
         this.state.isCartOpen = show;
         
         if (show) {
-            sidebar.classList.add('open');
-            overlay.classList.add('open');
+            sidebar?.classList.add('open');
+            overlay?.classList.add('open');
             document.body.classList.add('body-no-scroll');
-            this.renderCartItems(); // Renderiza ao abrir
+            this.renderCartItems();
         } else {
-            sidebar.classList.remove('open');
-            overlay.classList.remove('open');
+            sidebar?.classList.remove('open');
+            overlay?.classList.remove('open');
             document.body.classList.remove('body-no-scroll');
         }
     },
 
-    // Adicionar item ao array e salvar
-    addToCart(produtoId) {
-        // 1. Verifica se estamos na página de detalhes (se existe seletor de tamanho)
-        const sizeSelector = document.querySelector('.size-selector');
-        const selectedBtn = document.querySelector('.size-btn.selected');
-        let tamanhoFinal = 'N/A'; // Default para vitrine (sem tamanho)
-
-        // Se houver seletor na tela, OBRIGA a escolher
-        if (sizeSelector) {
-            if (!selectedBtn) {
-                alert("Por favor, selecione um tamanho antes de adicionar.");
-                return; // PARE! Não adiciona nada.
-            }
-            tamanhoFinal = selectedBtn.textContent.trim();
-        }
-
-        // 2. Busca o produto original
-        // (Usamos "==" para garantir que funcione com string ou number)
-        const produtoOriginal = this.state.allProducts.find(p => p.id == produtoId);
-        
-        if (produtoOriginal) {
-            // 3. CRIA UM NOVO OBJETO (Cópia)
-            // Importante: Criamos uma cópia para adicionar o tamanho sem alterar o original
-            const itemParaCarrinho = {
-                ...produtoOriginal, // Copia todas as propriedades (id, nome, preco...)
-                tamanhoSelecionado: tamanhoFinal // Adiciona a nova propriedade
-            };
-
-            this.state.cart.push(itemParaCarrinho);
-            this.saveCart();
-            this.updateCartCount();
-            
-            // Abre o carrinho para feedback visual
-            this.toggleCart(true); 
-        }
-    },
-
-    // Remover item pelo índice no array
-    removeFromCart(index) {
-        this.state.cart.splice(index, 1);
-        this.saveCart();
-        this.renderCartItems(); // Re-renderiza a lista
-        this.updateCartCount();
-    },
-
-    // Desenha o HTML dentro do sidebar
-
     renderCartItems() {
         const container = document.getElementById('cart-items');
-        const totalEl = document.getElementById('cart-total-value');
+        const totalEl = document.getElementById('cart-total-value'); // Verifique se o ID no HTML é este ou 'cart-total'
         
+        if (!container) return;
+
         container.innerHTML = '';
         let total = 0;
 
         if (this.state.cart.length === 0) {
             container.innerHTML = '<div class="empty-cart-msg">Seu carrinho está vazio.</div>';
-            totalEl.textContent = 'R$ 0,00';
+            if(totalEl) totalEl.textContent = 'R$ 0,00';
             return;
         }
 
         this.state.cart.forEach((item, index) => {
-            total += item.preco;
-            const precoFmt = this.formatPrice(item.preco);
+            const subtotal = item.preco * item.quantidade;
+            total += subtotal;
             
-            // Lógica para exibir o tamanho de forma elegante
-            // Se for "N/A" (veio da vitrine), a gente não mostra nada para ficar limpo
-            const htmlTamanho = item.tamanhoSelecionado && item.tamanhoSelecionado !== 'N/A' 
-                ? `<span style="font-size: 0.75rem; color: #888; display:block; margin-top:2px;">Tamanho: <strong style="color: #bfa15f;">${item.tamanhoSelecionado}</strong></span>` 
-                : '';
-
             const div = document.createElement('div');
             div.className = 'cart-item';
+            
+            // Exibe Marca se existir
+            const marcaHtml = item.marca ? `<span style="font-size: 0.75rem; color: #888;">${item.marca}</span>` : '';
+
             div.innerHTML = `
                 <img src="${item.imagem}" alt="${item.nome}">
                 <div class="cart-item-info">
+                    ${marcaHtml}
                     <span class="cart-item-title">${item.nome}</span>
-                    ${htmlTamanho} <span class="cart-item-price">${precoFmt}</span>
-                    <br>
-                    <span class="remove-item" onclick="VelunaApp.removeFromCart(${index})">Remover</span>
+                    <span style="font-size: 0.8rem; display:block;">Tam: <strong>${item.tamanho}</strong> | Qtd: ${item.quantidade}</span>
+                    <span class="cart-item-price">${this.formatPrice(subtotal)}</span>
                 </div>
+                <button class="remove-btn" onclick="VelunaApp.removeFromCart(${index})" style="background:none; border:none; color:red; font-size:1.2rem; cursor:pointer;">&times;</button>
             `;
             container.appendChild(div);
         });
 
-        totalEl.textContent = this.formatPrice(total);
+        if(totalEl) totalEl.textContent = this.formatPrice(total);
     },
 
-    // Enviar pedido para o WhatsApp
-  checkoutWhatsApp() {
+    openCart() {
+        this.toggleCart(true);
+    },
+
+ updateCartUI() {
+        const countElements = document.querySelectorAll('.cart-count-display');
+        const totalItems = this.state.cart.reduce((acc, item) => acc + item.quantidade, 0);
+
+        countElements.forEach(el => {
+            el.textContent = totalItems;
+            
+            // Lógica Inteligente:
+            if (el.closest('.cart-header')) {
+                // No Header do Carrinho lateral: ESCONDE (já temos o título fixo)
+                el.style.display = 'none'; 
+            } else {
+                // No Menu Mobile ou Ícones: MOSTRA a bolinha se tiver item
+                el.style.display = totalItems > 0 ? 'inline-block' : 'none';
+            }
+        });
+
+        // Se o carrinho estiver aberto, atualiza a lista de produtos também
+        if (this.state.isCartOpen) {
+            this.renderCartItems();
+        }
+    },
+
+    // ============================================================
+    // CHECKOUT WHATSAPP
+    // ============================================================
+
+    checkoutWhatsApp() {
         if (this.state.cart.length === 0) {
-            alert("Seu carrinho está vazio!");
+            alert('Seu carrinho está vazio!');
             return;
         }
 
-        let mensagem = "Olá Véluna! Gostaria de finalizar o seguinte pedido:\n\n";
+        let mensagem = "Olá! Gostaria de finalizar o seguinte pedido feito no site:\n\n";
         let total = 0;
 
         this.state.cart.forEach(item => {
-            // Verifica se tem tamanho para formatar a string
-            const txtTamanho = (item.tamanhoSelecionado && item.tamanhoSelecionado !== 'N/A') 
-                ? ` [Tam: ${item.tamanhoSelecionado}]` 
-                : '';
-
-            mensagem += `▪️ ${item.nome}${txtTamanho} - ${this.formatPrice(item.preco)}\n`;
-            total += item.preco;
+            const subtotal = item.preco * item.quantidade;
+            total += subtotal;
+            
+            const marcaDisplay = item.marca ? `*${item.marca}* | ` : ''; 
+            mensagem += `- ${marcaDisplay}${item.nome} (${item.tamanho}) x${item.quantidade}: ${this.formatPrice(subtotal)}\n`;
         });
 
-        // --- MUDANÇAS AQUI EMBAIXO ---
-        mensagem += `\n*Subtotal:* ${this.formatPrice(total)}`;
-        mensagem += `\n*Frete:* A calcular (Enviarei meu CEP)`; // Linha nova
-        
-        mensagem += `\n\nAguardo o cálculo do frete e link de pagamento.`;
+        mensagem += `\n*Valor Total: ${this.formatPrice(total)}*`;
+        mensagem += `\n\nFico no aguardo para combinar o pagamento e envio!`;
 
         const link = `https://wa.me/${this.config.whatsappNumber}?text=${encodeURIComponent(mensagem)}`;
         window.open(link, '_blank');
     },
-    // Persistência: LocalStorage
-    saveCart() {
-        localStorage.setItem('velunaCart', JSON.stringify(this.state.cart));
+
+    // ============================================================
+    // PÁGINA DE PRODUTO & MÍDIAS
+    // ============================================================
+
+    loadProductPage(id) {
+        const produto = this.state.allProducts.find(p => p.id == id);
+        const container = document.getElementById('product-detail-area');
+
+        if (!produto || !container) return;
+
+        // Mídias
+        const midias = (produto.galeria && produto.galeria.length > 0) ? produto.galeria : [produto.imagem];
+
+        // Grade de Tamanhos
+        let gradeTamanhos = [];
+        let labelTamanho = 'Tamanho';
+        const roupas = ['vestuario', 'camisetas', 'shorts', 'moletons', 'calcas', 'jaquetas', 'conjuntos'];
+        
+        if (produto.categoria === 'sneakers') {
+            labelTamanho = 'Escolha a Numeração (BR)';
+            gradeTamanhos = ['38', '39', '40', '41', '42', '43'];
+        } else if (roupas.includes(produto.categoria && produto.categoria.toLowerCase())) {
+            labelTamanho = 'Escolha o Tamanho';
+            gradeTamanhos = ['P', 'M', 'G', 'GG', 'XG'];
+        } else {
+            gradeTamanhos = ['Único'];
+        }
+
+        container.innerHTML = `
+            <div class="p-image-col">
+                <div class="main-media-stage" id="main-stage">
+                    ${this.gerarHTMLMidia(midias[0], true)} 
+                </div>
+                <div class="gallery-thumbs" id="gallery-thumbs" style="${midias.length <= 1 ? 'display:none' : ''}">
+                    ${midias.map((url, index) => `
+                        <div class="thumb-item ${index === 0 ? 'active' : ''}" onclick="VelunaApp.trocarMidia('${url}', this)">
+                            ${this.gerarHTMLThumb(url)}
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            
+            <div class="p-info-col">
+                <span class="p-brand">${produto.marca}</span>
+                <h1 class="p-title">${produto.nome}</h1>
+                <div class="p-price">${this.formatPrice(produto.preco)}</div>
+                
+                <div class="p-description">
+                    <p>Peça exclusiva ${produto.marca}. Adicione ao carrinho para finalizar seu pedido via WhatsApp.</p>
+                </div>
+
+                <div class="size-selector">
+                    <span class="size-label">${labelTamanho}</span>
+                    <div class="sizes-grid" id="sizes-grid">
+                        ${gradeTamanhos.map(t => `<button class="size-btn" onclick="VelunaApp.selecionarTamanho(this)">${t}</button>`).join('')}
+                    </div>
+                </div>
+
+                <button class="btn-gold btn-block" onclick="VelunaApp.addToCart(${produto.id})">
+                    Adicionar ao Carrinho
+                </button>
+            </div>
+        `;
     },
 
-    loadCart() {
-        const saved = localStorage.getItem('velunaCart');
-        if (saved) {
-            this.state.cart = JSON.parse(saved);
+    gerarHTMLMidia(url, autoplay = false) {
+        if (!url) return '';
+        const urlLower = url.toLowerCase();
+        const isVideo = urlLower.endsWith('.mp4') || urlLower.endsWith('.mov');
+
+        if (isVideo) {
+            return `<video src="${url}" class="media-element fade-in" controls controlsList="nodownload" ${autoplay ? 'autoplay muted' : ''} loop playsinline></video>`;
+        } else {
+            return `<img src="${url}" class="media-element fade-in" alt="Produto Véluna">`;
         }
     },
 
-updateCartCount() {
-        // Atualiza TODOS os contadores da tela (seja no header ou no menu mobile)
-        const countElements = document.querySelectorAll('.cart-count-display');
-        
-        countElements.forEach(el => {
-            el.textContent = this.state.cart.length;
-        });
+    gerarHTMLThumb(url) {
+        if (!url) return '';
+        const urlLower = url.toLowerCase();
+        const isVideo = urlLower.endsWith('.mp4') || urlLower.endsWith('.mov');
+
+        if (isVideo) {
+            return `<div class="thumb-video-icon"><i class="fas fa-play"></i></div>`;
+        } else {
+            return `<img src="${url}" alt="thumb">`;
+        }
     },
 
-    formatPrice(valor) {
-        return new Intl.NumberFormat(this.config.locale, { 
-            style: 'currency', currency: this.config.currency 
-        }).format(valor);
+    trocarMidia(url, elementoThumb) {
+        document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active'));
+        elementoThumb.classList.add('active');
+        const stage = document.getElementById('main-stage');
+        stage.innerHTML = this.gerarHTMLMidia(url, true);
+    },
+
+    selecionarTamanho(btn) {
+        document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
     },
 
     // ============================================================
-    // MÓDULO DE VITRINE (Atualizado para botão "Adicionar")
+    // VITRINE & FILTROS
     // ============================================================
+
     setupVitrine() {
         const containerHome = document.getElementById('vitrine-destaques');
         const containerFull = document.getElementById('vitrine-produtos');
@@ -267,7 +377,6 @@ updateCartCount() {
 
         this.renderProducts(produtos, container);
         
-        // Setup Sort
         const sortSelect = document.getElementById('sort');
         if (sortSelect) {
             sortSelect.addEventListener('change', (e) => {
@@ -279,9 +388,42 @@ updateCartCount() {
             });
         }
     },
-   // --- FUNÇÃO DE FILTRO INTELIGENTE (CORRIGIDA) ---
+
+    renderProducts(lista, container) {
+        container.innerHTML = '';
+        if (lista.length === 0) {
+            container.innerHTML = '<div style="text-align:center; grid-column:1/-1; padding:40px;">Nenhum produto encontrado.</div>';
+            return;
+        }
+
+        lista.forEach(produto => {
+            const badgeClass = produto.tipo === 'pronta-entrega' ? 'badge-pronta' : 'badge-encomenda';
+            const badgeText = produto.tipo === 'pronta-entrega' ? 'Pronta Entrega' : 'Sob Encomenda';
+
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            
+            card.innerHTML = `
+                <div style="position: relative; overflow: hidden;">
+                    <span class="product-badge ${badgeClass}">${badgeText}</span>
+                    <a href="produto.html?id=${produto.id}" style="display:block;">
+                        <img src="${produto.imagem}" alt="${produto.nome}" loading="lazy">
+                    </a>
+                </div>
+                
+                <div class="product-info">
+                    <span class="product-brand">${produto.marca}</span>
+                    <a href="produto.html?id=${produto.id}" style="text-decoration:none; color:inherit;">
+                        <h3 class="product-name">${produto.nome}</h3>
+                    </a>
+                    <div class="product-price">${this.formatPrice(produto.preco)}</div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    },
+
     filtrar(categoria, botaoClicado) {
-        // 1. Atualiza visual dos botões
         if (botaoClicado) {
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             botaoClicado.classList.add('active');
@@ -290,16 +432,12 @@ updateCartCount() {
         const container = document.getElementById('vitrine-produtos') || document.getElementById('vitrine-destaques');
         if (!container) return;
 
-        // 2. RECUPERA O CONTEXTO ATUAL (URL)
-        // Antes de filtrar categoria, verificamos se o usuário está numa página de marca ou pronta-entrega
         const urlParams = new URLSearchParams(window.location.search);
         const marcaAtual = urlParams.get('marca');
-        const filtroAtual = urlParams.get('filtro'); // ex: pronta-entrega
+        const filtroAtual = urlParams.get('filtro');
 
-        // 3. Começa com todos os produtos
         let listaBase = this.state.allProducts;
 
-        // 4. Aplica os filtros da URL primeiro (O "Funil" da Marca)
         if (marcaAtual) {
             listaBase = listaBase.filter(p => p.marca.toLowerCase() === marcaAtual.toLowerCase());
         }
@@ -307,9 +445,7 @@ updateCartCount() {
             listaBase = listaBase.filter(p => p.tipo === 'pronta-entrega');
         }
 
-        // 5. Agora sim, aplica o filtro dos botões (Categoria) nessa lista já filtrada
         let resultadoFinal;
-
         if (categoria === 'todos') {
             resultadoFinal = listaBase;
         } else {
@@ -318,243 +454,19 @@ updateCartCount() {
             );
         }
 
-        // 6. Desenha na tela
         this.renderProducts(resultadoFinal, container);
     },
-    // --- MÓDULO PÁGINA DE PRODUTO (NOVO) ---
- // --- FUNÇÃO PÁGINA DE PRODUTO (HÍBRIDA) ---
-    loadProductPage(id) {
-        const produto = this.state.allProducts.find(p => p.id == id);
-        const container = document.getElementById('product-detail-area');
-
-        if (!produto || !container) return;
-
-        // 1. Mídias
-        const midias = (produto.galeria && produto.galeria.length > 0) ? produto.galeria : [produto.imagem];
-
-        // 2. Define a Grade de Tamanhos Padrão (Baseado na categoria)
-        let gradeTamanhos = [];
-        let labelTamanho = 'Tamanho';
-        
-        // Categorias de Roupas
-        const roupas = ['vestuario', 'camisetas', 'shorts', 'moletons', 'calcas', 'jaquetas', 'conjuntos'];
-        
-        if (produto.categoria === 'sneakers') {
-            labelTamanho = 'Selecionar Tamanho (BR)';
-            gradeTamanhos = ['38', '39', '40', '41', '42', '43'];
-        } else if (roupas.includes(produto.categoria.toLowerCase())) {
-            labelTamanho = 'Selecionar Tamanho';
-            gradeTamanhos = ['P', 'M', 'G', 'GG', 'XG'];
-        } else {
-            gradeTamanhos = ['Único'];
-        }
-
-        // 3. Renderiza a Estrutura HTML
-        container.innerHTML = `
-            <div class="p-image-col">
-                <div class="main-media-stage" id="main-stage">
-                    ${this.gerarHTMLMidia(midias[0], true)} 
-                </div>
-                <div class="gallery-thumbs" id="gallery-thumbs" style="${midias.length <= 1 ? 'display:none' : ''}">
-                    ${midias.map((url, index) => `
-                        <div class="thumb-item ${index === 0 ? 'active' : ''}" onclick="VelunaApp.trocarMidia('${url}', this)">
-                            ${this.gerarHTMLThumb(url)}
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-            
-            <div class="p-info-col">
-                <span class="p-brand">${produto.marca}</span>
-                <h1 class="p-title">${produto.nome}</h1>
-                <div class="p-price">${this.formatPrice(produto.preco)}</div>
-                
-                <div id="stock-mode-area"></div>
-
-                <div class="p-description">
-                    <p>Item exclusivo ${produto.marca}. Selecione a modalidade de envio para ver a disponibilidade.</p>
-                </div>
-
-                <div class="size-selector">
-                    <span class="size-label">${labelTamanho}</span>
-                    <div class="sizes-grid" id="sizes-grid">
-                        </div>
-                </div>
-
-                <button class="btn-gold btn-block" onclick="VelunaApp.addToCart(${produto.id})">
-                    Adicionar ao Carrinho
-                </button>
-            </div>
-        `;
-
-        // 4. LÓGICA DO SISTEMA HÍBRIDO
-        const stockArea = document.getElementById('stock-mode-area');
-        const sizesGrid = document.getElementById('sizes-grid');
-        
-        // Verifica se existe o campo estoqueBr no data.js
-        const temEstoqueBR = produto.estoqueBr && Array.isArray(produto.estoqueBr) && produto.estoqueBr.length > 0;
-
-        // Função que desenha os botões (P, M, G...)
-        const renderSizes = (modo) => {
-            sizesGrid.innerHTML = ''; // Limpa tudo antes de desenhar
-            
-            gradeTamanhos.forEach(tamanho => {
-                const btn = document.createElement('button');
-                btn.className = 'size-btn';
-                btn.textContent = tamanho;
-
-                // SE ESTIVER NO MODO "PRONTA ENTREGA" -> APLICA O FILTRO
-                if (modo === 'pronta-entrega' && temEstoqueBR) {
-                    // Verifica se o tamanho atual existe na lista estoqueBr
-                    // (Usa toLowerCase para garantir que "m" seja igual a "M")
-                    const disponivel = produto.estoqueBr.some(t => t.toLowerCase() === tamanho.toLowerCase());
-                    
-                    if (!disponivel) {
-                        btn.classList.add('disabled'); // Adiciona classe que risca e bloqueia
-                        btn.title = "Indisponível para Pronta Entrega";
-                    }
-                }
-
-                // Evento de Clique (Selecionar Tamanho)
-                btn.onclick = function() {
-                    // Se estiver riscado, não faz nada
-                    if (this.classList.contains('disabled')) return;
-                    
-                    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
-                    this.classList.add('selected');
-                };
-
-                sizesGrid.appendChild(btn);
-            });
-        };
-
-        // 5. Configura os Botões de Alternância (Só aparecem se tiver estoqueBr)
-        if (temEstoqueBR) {
-            stockArea.innerHTML = `
-                <div class="stock-mode-selector">
-                    <button class="mode-btn active" id="btn-pe">Pronta Entrega </button>
-                    <button class="mode-btn" id="btn-enc">Sob Encomenda </button>
-                </div>
-            `;
-
-            const btnPE = document.getElementById('btn-pe');
-            const btnEnc = document.getElementById('btn-enc');
-
-            // Clique em Pronta Entrega
-            btnPE.onclick = () => {
-                btnPE.classList.add('active');
-                btnEnc.classList.remove('active');
-                renderSizes('pronta-entrega'); // Chama a função bloqueando tamanhos
-            };
-
-            // Clique em Encomenda
-            btnEnc.onclick = () => {
-                btnEnc.classList.add('active');
-                btnPE.classList.remove('active');
-                renderSizes('encomenda'); // Chama a função liberando tudo
-            };
-
-            // INICIALIZAÇÃO: Começa filtrando por Pronta Entrega
-            renderSizes('pronta-entrega');
-
-        } else {
-            // Se o produto NÃO tiver estoqueBr definido, desenha normal (tudo liberado)
-            renderSizes('padrao');
-        }
-    },
-
-    // --- FUNÇÕES AUXILIARES DA GALERIA (COLE LOGO ABAIXO DA LOADPRODUCTPAGE) ---
-
-    // Gera o HTML do Palco (Detecta MP4 vs Imagem Normal)
-    gerarHTMLMidia(url, autoplay = false) {
-        const urlLower = url.toLowerCase();
-        // Se terminar com mp4 é vídeo, senão é imagem (JPG, PNG, JPEG, WEBP...)
-        const isVideo = urlLower.endsWith('.mp4') || urlLower.endsWith('.mov');
-
-        if (isVideo) {
-            // Vídeo em loop, sem som, tocando automático
-            return `<video src="${url}" class="media-element fade-in" controls controlsList="nodownload" ${autoplay ? 'autoplay muted' : ''} loop playsinline></video>`;
-        } else {
-            // Imagem Normal
-            return `<img src="${url}" class="media-element fade-in" alt="Detalhe Produto">`;
-        }
-    },
-
-    // Gera a miniatura pequena
-    gerarHTMLThumb(url) {
-        const urlLower = url.toLowerCase();
-        const isVideo = urlLower.endsWith('.mp4') || urlLower.endsWith('.mov');
-
-        if (isVideo) {
-            // Ícone de Play para identificar vídeo
-            return `<div class="thumb-video-icon"><i class="fas fa-play"></i></div>`;
-        } else {
-            return `<img src="${url}" alt="thumb">`;
-        }
-    },
-
-    // Troca a imagem principal ao clicar na miniatura
-    trocarMidia(url, elementoThumb) {
-        // Remove a borda dourada de todos
-        document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active'));
-        // Adiciona borda no clicado
-        elementoThumb.classList.add('active');
-
-        // Troca o conteúdo principal
-        const stage = document.getElementById('main-stage');
-        stage.innerHTML = this.gerarHTMLMidia(url, true); // true = dá play se for vídeo
-    },
-
-    setupSizeButtons(container) {
-        const btns = container.querySelectorAll('.size-btn');
-        btns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                btns.forEach(b => b.classList.remove('selected'));
-                this.classList.add('selected');
-            });
-        });
-    },
-    renderProducts(lista, container) {
-        container.innerHTML = '';
-        if (lista.length === 0) {
-            container.innerHTML = '<div style="text-align:center; grid-column:1/-1; padding:40px;">Nenhum produto encontrado.</div>';
-            return;
-        }
-
-        // Dentro de renderProducts(lista, container) ...
-
-    lista.forEach(produto => {
-        const badgeClass = produto.tipo === 'pronta-entrega' ? 'badge-pronta' : 'badge-encomenda';
-        const badgeText = produto.tipo === 'pronta-entrega' ? 'Pronta Entrega' : 'Sob Encomenda';
-
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        
-        // REMOVEMOS O <BUTTON> DAQUI
-        // Agora só existe o link na imagem que leva para a página de detalhes
-        card.innerHTML = `
-            <div style="position: relative; overflow: hidden;">
-                <span class="product-badge ${badgeClass}">${badgeText}</span>
-                <a href="produto.html?id=${produto.id}" style="display:block;">
-                    <img src="${produto.imagem}" alt="${produto.nome}" loading="lazy">
-                </a>
-            </div>
-            
-            <div class="product-info">
-                <span class="product-brand">${produto.marca}</span>
-                <a href="produto.html?id=${produto.id}" style="text-decoration:none; color:inherit;">
-                    <h3 class="product-name">${produto.nome}</h3>
-                </a>
-                <div class="product-price">${this.formatPrice(produto.preco)}</div>
-            </div>
-        `;
-        container.appendChild(card);
-    });
-    },
 
     // ============================================================
-    // OUTROS MÓDULOS (Mantidos)
+    // UTILS & SETUP
     // ============================================================
+
+    formatPrice(valor) {
+        return new Intl.NumberFormat(this.config.locale, { 
+            style: 'currency', currency: this.config.currency 
+        }).format(valor);
+    },
+
     setupMarcas() {
         const container = document.getElementById('lista-marcas');
         if (!container) return;
@@ -580,12 +492,9 @@ updateCartCount() {
         
         if (!oldBtn || !menu) return;
 
-        // 1. Substituição do botão (Clonagem para limpar eventos antigos)
-        // Isso evita bugs se a função for chamada duas vezes
         const btn = oldBtn.cloneNode(true);
         oldBtn.parentNode.replaceChild(btn, oldBtn);
 
-        // 2. Setup do Overlay (Cortina Escura)
         let overlay = document.getElementById('mobile-menu-overlay');
         if (!overlay) {
             overlay = document.createElement('div');
@@ -593,36 +502,27 @@ updateCartCount() {
             document.body.appendChild(overlay);
         }
 
-        // 3. Função Centralizada de Fechar
-        // (Garante que remove a classe 'active' do botão certo)
         const closeMenu = () => {
             this.state.isMobileMenuOpen = false;
-            
-            btn.classList.remove('active');     // X vira Hambúrguer
-            menu.classList.remove('active');    // Recolhe Menu
-            overlay.classList.remove('active'); // Some Cortina
-            
-            document.body.style.overflow = '';  // Destrava Scroll
+            btn.classList.remove('active');
+            menu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
         };
 
-        // 4. Evento: Clicar no X ou no Hambúrguer
         btn.addEventListener('click', () => {
             const willOpen = !this.state.isMobileMenuOpen;
-            
             if (willOpen) {
-                // ABRIR
                 this.state.isMobileMenuOpen = true;
                 btn.classList.add('active');
                 menu.classList.add('active');
                 overlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
             } else {
-                // FECHAR
                 closeMenu();
             }
         });
 
-        // 5. Evento: Clicar Fora (Overlay)
         overlay.addEventListener('click', closeMenu);
     },
 
