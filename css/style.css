@@ -516,6 +516,35 @@ h1, h2, h3, h4, h5, h6 {
 }
 .remove-item:hover, .remove-btn:hover { color: var(--color-danger); }
 .empty-cart-msg { text-align: center; color: #666; margin-top: 50px; }
+/* ==========================================================================
+   BOTÃO "CONTINUAR COMPRANDO" (SECUNDÁRIO)
+   ========================================================================== */
+.btn-continue {
+    display: block; /* Ocupa a linha toda */
+    width: 100%;
+    text-align: center;
+    padding: 15px 0; /* Altura confortável para o dedo */
+    margin-bottom: 15px; /* Espaço para não grudar no botão de finalizar */
+    
+    background-color: transparent;
+    border: 1px solid #333; /* Borda sutil */
+    color: #888; /* Texto cinza para não brigar com o dourado */
+    
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none; /* Remove sublinhado de link */
+}
+
+/* Efeito ao passar o mouse */
+.btn-continue:hover {
+    border-color: #666;
+    color: #fff; /* Fica branco e mais visível */
+    background-color: rgba(255, 255, 255, 0.05);
+}
 
 /* FOOTER DO CARRINHO */
 .cart-footer { padding: 30px; background-color: #080808; border-top: 1px solid #222; flex-shrink: 0; }
