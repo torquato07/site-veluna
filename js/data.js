@@ -308,7 +308,7 @@ window.produtosVeluna = [
         "assets/img/camiseta-rl-azul-escudobranco.mp4"
 
     ],
-    marca: "Ralph lauren",
+    marca: "Ralph Lauren",
     preco: 159.90,
     categoria: "camisetas",   
     destaque: false,
@@ -322,7 +322,7 @@ window.produtosVeluna = [
         "assets/img/camiseta-rl-branca-escritaazul.mp4"
 
     ],
-    marca: "Ralph lauren",
+    marca: "Ralph Lauren",
     preco: 159.90,
     categoria: "camisetas",   
     destaque: false,
@@ -336,7 +336,7 @@ window.produtosVeluna = [
         "assets/img/camiseta-rl-preta-escritabranca.mp4"
 
     ],
-    marca: "Ralph lauren",
+    marca: "Ralph Lauren",
     preco: 159.90,
     categoria: "camisetas",   
     destaque: false,
