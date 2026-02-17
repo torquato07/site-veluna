@@ -247,31 +247,58 @@ const VelunaApp = {
     // ============================================================
     // PÁGINA DE PRODUTO & MÍDIAS
     // ============================================================
-
-    loadProductPage(id) {
+loadProductPage(id) {
         const produto = this.state.allProducts.find(p => p.id == id);
         const container = document.getElementById('product-detail-area');
 
         if (!produto || !container) return;
 
-        // Mídias
+        // ... (Parte das Mídias continua igual) ...
         const midias = (produto.galeria && produto.galeria.length > 0) ? produto.galeria : [produto.imagem];
 
-        // Grade de Tamanhos
-        let gradeTamanhos = [];
-        let labelTamanho = 'Tamanho';
-        const roupas = ['vestuario', 'camisetas', 'shorts', 'moletons', 'calcas', 'jaquetas', 'conjuntos'];
-        
-        if (produto.categoria === 'sneakers') {
-            labelTamanho = 'Escolha a Numeração (BR)';
-            gradeTamanhos = ['38', '39', '40', '41', '42', '43'];
-        } else if (roupas.includes(produto.categoria && produto.categoria.toLowerCase())) {
-            labelTamanho = 'Escolha o Tamanho';
-            gradeTamanhos = ['P', 'M', 'G', 'GG', 'XG'];
+        // LOGICA DOS BOTÕES E TAMANHOS
+        let areaCompraHTML = '';
+
+        if (produto.esgotado) {
+            // SE ESTIVER ESGOTADO:
+            areaCompraHTML = `
+                <span class="esgotado-msg">Produto Indisponível no Momento</span>
+                <button class="btn-gold btn-block btn-esgotado" disabled>
+                    ESGOTADO
+                </button>
+            `;
         } else {
-            gradeTamanhos = ['Único'];
+            // SE TIVER ESTOQUE (Código Normal):
+            // 1. Define Tamanhos
+            let gradeTamanhos = [];
+            let labelTamanho = 'Tamanho';
+            const roupas = ['vestuario', 'camisetas', 'shorts', 'moletons', 'calcas', 'jaquetas', 'conjuntos'];
+            
+            if (produto.categoria === 'sneakers') {
+                labelTamanho = 'Escolha a Numeração (BR)';
+                gradeTamanhos = ['38', '39', '40', '41', '42', '43'];
+            } else if (roupas.includes(produto.categoria && produto.categoria.toLowerCase())) {
+                labelTamanho = 'Escolha o Tamanho';
+                gradeTamanhos = ['P', 'M', 'G', 'GG', 'XG'];
+            } else {
+                gradeTamanhos = ['Único'];
+            }
+
+            areaCompraHTML = `
+                <div class="size-selector">
+                    <span class="size-label">${labelTamanho}</span>
+                    <div class="sizes-grid" id="sizes-grid">
+                        ${gradeTamanhos.map(t => `<button class="size-btn" onclick="VelunaApp.selecionarTamanho(this)">${t}</button>`).join('')}
+                    </div>
+                </div>
+
+                <button class="btn-gold btn-block" onclick="VelunaApp.addToCart(${produto.id})">
+                    Adicionar ao Carrinho
+                </button>
+            `;
         }
 
+        // Renderiza tudo
         container.innerHTML = `
             <div class="p-image-col">
                 <div class="main-media-stage" id="main-stage">
@@ -292,19 +319,10 @@ const VelunaApp = {
                 <div class="p-price">${this.formatPrice(produto.preco)}</div>
                 
                 <div class="p-description">
-                    <p>Peça exclusiva ${produto.marca}. Adicione ao carrinho para finalizar seu pedido via WhatsApp.</p>
+                    <p>Peça exclusiva ${produto.marca}.</p>
                 </div>
 
-                <div class="size-selector">
-                    <span class="size-label">${labelTamanho}</span>
-                    <div class="sizes-grid" id="sizes-grid">
-                        ${gradeTamanhos.map(t => `<button class="size-btn" onclick="VelunaApp.selecionarTamanho(this)">${t}</button>`).join('')}
-                    </div>
-                </div>
-
-                <button class="btn-gold btn-block" onclick="VelunaApp.addToCart(${produto.id})">
-                    Adicionar ao Carrinho
-                </button>
+                ${areaCompraHTML}
             </div>
         `;
     },
@@ -389,7 +407,7 @@ const VelunaApp = {
         }
     },
 
-    renderProducts(lista, container) {
+   renderProducts(lista, container) {
         container.innerHTML = '';
         if (lista.length === 0) {
             container.innerHTML = '<div style="text-align:center; grid-column:1/-1; padding:40px;">Nenhum produto encontrado.</div>';
@@ -397,17 +415,47 @@ const VelunaApp = {
         }
 
         lista.forEach(produto => {
-            const badgeClass = produto.tipo === 'pronta-entrega' ? 'badge-pronta' : 'badge-encomenda';
-            const badgeText = produto.tipo === 'pronta-entrega' ? 'Pronta Entrega' : 'Sob Encomenda';
+            let badgeClass = '';
+            let badgeText = '';
+            let cardClass = 'product-card';
+            
+            // Variável para guardar o HTML do overlay
+            let esgotadoOverlayHTML = ''; 
+
+            if (produto.esgotado) {
+                // 1. Configura classe do card
+                cardClass += ' esgotado';
+                
+                // 2. Cria o HTML do texto por cima da imagem
+                esgotadoOverlayHTML = `
+                    <div class="esgotado-overlay">
+                        <span>ESGOTADO</span>
+                    </div>
+                `;
+                
+                // (Opcional) Se quiser manter a badge do canto também:
+                badgeClass = 'badge-esgotado';
+                badgeText = 'Indisponível';
+
+            } else if (produto.tipo === 'pronta-entrega') {
+                badgeClass = 'badge-pronta';
+                badgeText = 'Pronta Entrega';
+            } else {
+                badgeClass = 'badge-encomenda';
+                badgeText = 'Sob Encomenda';
+            }
 
             const card = document.createElement('div');
-            card.className = 'product-card';
+            card.className = cardClass;
             
+            // AQUI É A MÁGICA: Inserimos o ${esgotadoOverlayHTML} logo depois da imagem
             card.innerHTML = `
                 <div style="position: relative; overflow: hidden;">
                     <span class="product-badge ${badgeClass}">${badgeText}</span>
+                    
                     <a href="produto.html?id=${produto.id}" style="display:block;">
                         <img src="${produto.imagem}" alt="${produto.nome}" loading="lazy">
+                        ${esgotadoOverlayHTML} 
                     </a>
                 </div>
                 

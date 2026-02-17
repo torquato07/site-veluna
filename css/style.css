@@ -661,3 +661,76 @@ h1, h2, h3, h4, h5, h6 {
 .policy-alert i { color: var(--color-gold-primary); font-size: 1.5rem; }
 .policy-alert p { color: #fff; font-size: 0.9rem; margin: 0; }
 @media (max-width: 768px) { .policy-alert { flex-direction: column; text-align: center; } }
+/* ==========================================================================
+   ESTILOS DE ITEM ESGOTADO
+   ========================================================================== */
+
+/* 1. Na Vitrine (Card) */
+.product-card.esgotado {
+    opacity: 0.7; /* Deixa o card meio apagado */
+}
+
+.product-card.esgotado img {
+    filter: grayscale(100%); /* Deixa a foto preto e branco */
+}
+
+.badge-esgotado {
+    background-color: #333 !important; /* Etiqueta Cinza Escuro */
+    color: #fff !important;
+    border: 1px solid #555;
+}
+
+/* 2. Na Página do Produto */
+.btn-esgotado {
+    background-color: #444 !important;
+    color: #999 !important;
+    border-color: #444 !important;
+    cursor: not-allowed !important;
+    pointer-events: none; /* Bloqueia cliques */
+    font-weight: normal !important;
+}
+
+.esgotado-msg {
+    color: #e74c3c; /* Vermelho suave */
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+/* ==========================================================================
+   OVERLAY DE ESGOTADO (TEXTO NA IMAGEM)
+   ========================================================================== */
+
+/* A camada que fica por cima da imagem */
+.esgotado-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo preto 60% transparente */
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;     /* Centraliza verticalmente */
+    z-index: 10;             /* Garante que fique na frente da imagem */
+    pointer-events: none;    /* Permite clicar no produto mesmo com o texto em cima */
+}
+
+/* O texto "ESGOTADO" */
+.esgotado-overlay span {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    border: 2px solid #fff; /* Borda branca estilosa */
+    padding: 10px 20px;
+    text-transform: uppercase;
+    transform: rotate(-10deg); /* Um leve giro para parecer "carimbo" */
+}
+
+/* Garante que a imagem de fundo fique preto e branca */
+.product-card.esgotado img {
+    filter: grayscale(100%);
+    opacity: 0.8;
+}

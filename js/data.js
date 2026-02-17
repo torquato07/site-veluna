@@ -21,6 +21,7 @@ window.produtosVeluna = [
     preco: 109.90,
     categoria: "acessorios",
     destaque: false,
+    esgotado: true,
 },
    
     {
@@ -34,7 +35,8 @@ window.produtosVeluna = [
     preco: 109.90,
     categoria: "acessorios",
     destaque: false,
-    destaque: true,
+    destaque: false,
+    esgotado: true,
 },
     {
     id: 3,
@@ -48,6 +50,7 @@ window.produtosVeluna = [
     categoria: "acessorios",
     destaque: false,
     destaque: false,
+    esgotado: true,
    
 },
     {
@@ -104,6 +107,7 @@ window.produtosVeluna = [
     preco: 149.90,
     categoria: "shorts",   
     destaque: false,
+    esgotado: true,
 },
 {
     id: 8,
@@ -116,7 +120,8 @@ window.produtosVeluna = [
     marca: "Ralph Lauren",
     preco: 149.90,
     categoria: "shorts",   
-    destaque: true,
+    destaque: false,
+    esgotado: true,
 },
 {
     id: 9,
@@ -130,11 +135,12 @@ window.produtosVeluna = [
     marca: "Amiri",
     preco: 159.90,
     categoria: "camisetas",   
-    destaque: true,
+    destaque: false,
+    esgotado: true,
 },
 {
     id: 10,
-    nome: "Camiseta Anjo",
+    nome: "Camiseta Preta Detalhes Rosa",
     imagem: "assets/img/camiseta-amiri-pretaerosa.jpeg", 
     galeria: [
         "assets/img/camiseta-amiri-pretaerosa.jpeg",
@@ -145,6 +151,7 @@ window.produtosVeluna = [
     preco: 159.90,
     categoria: "camisetas",   
     destaque: false,
+    esgotado: true,
 },
 {
     id: 11,
@@ -173,6 +180,7 @@ window.produtosVeluna = [
     preco: 159.90,
     categoria: "camisetas",   
     destaque: false,
+    esgotado: true,
 },
 {
     id: 12,
@@ -242,7 +250,7 @@ window.produtosVeluna = [
     marca: "Hugo Boss",
     preco: 159.90,
     categoria: "camisetas",   
-    destaque: false,
+    destaque: true,
 },
 {
     id: 17,
@@ -284,6 +292,7 @@ window.produtosVeluna = [
     preco: 159.90,
     categoria: "camisetas",   
     destaque: false,
+    esgotado: true,
 },
 {
     id: 20,
@@ -325,7 +334,7 @@ window.produtosVeluna = [
     marca: "Ralph Lauren",
     preco: 159.90,
     categoria: "camisetas",   
-    destaque: false,
+    destaque: true,
 },
 {
     id: 24,
@@ -409,18 +418,20 @@ window.produtosVeluna = [
     preco: 159.90,
     categoria: "camisetas",   
     destaque: false,
+    esgotado: true,
 },
 {
     id: 29,
-    nome: "Camiseta Polo / Logo simples",
-    imagem: "assets/img/polo-lacoste-preta-aberta.jpeg", 
+    nome: "Camiseta Polo / Gola branca",
+    imagem: "assets/img/polo-lacoste-gola-branca.jpeg", 
     galeria: [
-        "assets/img/polo-lacoste-preta-aberta.jpeg",
-        "assets/img/polo-lacoste-preta.jpeg"
+        "assets/img/polo-lacoste-gola-branca.jpeg",
+        "assets/img/polo-lacoste-gola-branca2.jpeg"
     ],
     marca: "Lacoste",
     preco: 199.90,
     categoria: "camisetas",
+    destaque: true,
 },
 {
     id: 30,
@@ -445,6 +456,7 @@ window.produtosVeluna = [
     preco: 89.90,
     categoria: "acessorios",
     destaque: false,
+    esgotado: true,
 },
 {
     id: 32,
@@ -470,6 +482,7 @@ window.produtosVeluna = [
     preco: 109.90,
     categoria: "acessorios",
     destaque: false,
+    esgotado: true,
 },
 {
     id: 34,
@@ -482,6 +495,7 @@ window.produtosVeluna = [
     preco: 109.90,
     categoria: "acessorios",
     destaque: false,
+    esgotado: true,
 },
 {
     id: 35,
@@ -494,6 +508,7 @@ window.produtosVeluna = [
     preco: 109.90,
     categoria: "acessorios",
     destaque: false,
+    esgotado: true,
 },
 {
     id: 36,
@@ -506,6 +521,7 @@ window.produtosVeluna = [
     preco: 109.90,
     categoria: "acessorios",
     destaque: false,
+    esgotado: true,
 },
 {
     id: 37,
@@ -585,5 +601,18 @@ window.produtosVeluna = [
     marca: "Lacoste",
     preco: 159.90,
     categoria: "camisetas",
+},
+{
+    id: 43,
+    nome: "Camiseta Polo / Logo simples",
+    imagem: "assets/img/polo-lacoste-preta-aberta.jpeg", 
+    galeria: [
+        "assets/img/polo-lacoste-preta-aberta.jpeg",
+        "assets/img/polo-lacoste-preta.jpeg"
+    ],
+    marca: "Lacoste",
+    preco: 199.90,
+    categoria: "camisetas",
+    destaque: false,
 },
 ];
